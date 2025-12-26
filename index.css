@@ -271,16 +271,6 @@ body {
   overflow: hidden;
 }
 
-.statistics::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 4px;
-  background: linear-gradient(90deg, #07c160, #1890ff, #36cfc9);
-}
-
 .amount-info {
   display: flex;
   justify-content: space-between;
@@ -418,49 +408,65 @@ body {
 
 .modal-content {
   background: white;
-  padding: 20px;
-  border-radius: 10px;
-  width: 85%;
-  max-width: 300px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+  padding: 28px 24px;
+  border-radius: 16px;
+  width: 90%;
+  max-width: 360px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15), 0 4px 12px rgba(0, 0, 0, 0.1);
+  position: relative;
+  overflow: hidden;
 }
 
 .modal-inputs {
   display: flex;
-  gap: 12px;
-  margin-bottom: 20px;
+  flex-direction: column;
+  gap: 16px;
+  margin-bottom: 24px;
 }
 
 .modal-input {
-  padding: 12px;
-  border-radius: 6px;
-  background: #f7f8fa;
-  border: 1px solid #e8e8e8;
-  font-size: 14px;
-  transition: all 0.3s;
+  padding: 14px 16px;
+  border-radius: 10px;
+  background: linear-gradient(135deg, #f7f8fa 0%, #ffffff 100%);
+  border: 2px solid #e8e8e8;
+  font-size: 15px;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.modal-input:focus {
+  outline: none;
+  border-color: #07c160;
+  background: #ffffff;
+  box-shadow: 0 2px 8px rgba(7, 193, 96, 0.15);
 }
 
 .modal-input.name {
-  flex: 2;
+  flex: none;
 }
 
 .modal-input.amount {
-  flex: 3;
+  flex: none;
 }
 
 .modal-buttons {
   display: flex;
   gap: 12px;
+  width: 100%;
 }
 
 .modal-btn {
   flex: 1;
-  padding: 10px 0;
-  border-radius: 6px;
-  font-size: 14px;
-  transition: all 0.3s;
+  padding: 14px 0;
+  border-radius: 10px;
+  font-size: 15px;
+  font-weight: 600;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   border: none;
   cursor: pointer;
+  letter-spacing: 0.3px;
+  min-width: 0;
 }
 
 .modal-btn:active {
@@ -468,14 +474,35 @@ body {
 }
 
 .cancel {
-  background: #f7f8fa;
+  background: linear-gradient(135deg, #f7f8fa 0%, #e8e8e8 100%);
   color: #666;
+  border: 1px solid #d9d9d9;
+}
+
+.cancel:hover {
+  background: linear-gradient(135deg, #e8e8e8 0%, #d9d9d9 100%);
+  transform: translateY(-1px);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.cancel:active {
+  transform: translateY(0) scale(0.98);
 }
 
 .confirm {
-  background: linear-gradient(135deg, #07c160, #10ad7a);
+  background: linear-gradient(135deg, #07c160 0%, #10ad7a 50%, #06a050 100%);
   color: white;
-  box-shadow: 0 2px 6px rgba(7, 193, 96, 0.2);
+  box-shadow: 0 4px 12px rgba(7, 193, 96, 0.3), 0 2px 6px rgba(7, 193, 96, 0.2);
+}
+
+.confirm:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(7, 193, 96, 0.4), 0 3px 8px rgba(7, 193, 96, 0.3);
+}
+
+.confirm:active {
+  transform: translateY(0) scale(0.98);
+  box-shadow: 0 2px 8px rgba(7, 193, 96, 0.25);
 }
 
 .transfer-item {
