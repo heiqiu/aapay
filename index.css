@@ -4,19 +4,31 @@
   box-sizing: border-box;
 }
 
+:root {
+  --page-max-width: 960px;
+  --page-padding: 24px;
+}
+
+@media (max-width: 768px) {
+  :root {
+    --page-max-width: 100%;
+    --page-padding: 16px;
+  }
+}
+
 body {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  background: #1a1a1a;
+  background: #0b0e14;
   font-size: 14px;
-  color: #1a1a1a;
+  color: #ffffff;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
 }
 
 /* 页头样式 */
 .header {
-  background: #1a1a1a;
+  background: #0b0e14;
   padding: 16px 12px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   position: sticky;
@@ -26,10 +38,10 @@ body {
 }
 
 .header-content {
-  max-width: 600px;
-  margin: 0;
+  max-width: var(--page-max-width);
+  margin: 0 auto;
   width: 100%;
-  padding-left: 10vw;
+  padding: 0 var(--page-padding);
 }
 
 .logo {
@@ -61,8 +73,8 @@ body {
 }
 
 .container {
-  padding: 20px 16px;
-  max-width: 600px;
+  padding: var(--page-padding);
+  max-width: var(--page-max-width);
   margin: 0 auto;
   width: 100%;
 }
@@ -76,20 +88,70 @@ body {
   position: relative;
 }
 
+/* 两栏布局容器 */
+.content-layout {
+  display: flex;
+  gap: 24px;
+  align-items: flex-start;
+  width: 100%;
+}
+
+/* 左侧：成员列表区域 */
+.members-section {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+/* 右侧：统计卡片 */
+.statistics {
+  flex: 0 0 400px;
+  margin-top: 0;
+  padding: 24px 20px;
+  background: #252525;
+  border-radius: 16px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08), 0 2px 6px rgba(0, 0, 0, 0.05);
+  border: 1px solid rgba(0, 0, 0, 0.04);
+  position: sticky;
+  top: 20px;
+  max-height: calc(100vh - 100px);
+  overflow-y: auto;
+}
+
+/* 响应式：小屏幕时改为单栏布局 */
+@media (max-width: 768px) {
+  .content-layout {
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .statistics {
+    flex: 1;
+    width: 100%;
+    position: static;
+    max-height: none;
+  }
+
+  .add-btn {
+    margin: 20px auto;
+  }
+}
+
 .input {
   border: 2px solid transparent;
   padding: 14px 18px;
   border-radius: 12px;
-  background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+  background: #252525;
   font-size: 16px;
-  color: #1a1a1a;
+  color: #ffffff;
   box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08), 0 1px 3px rgba(0, 0, 0, 0.05);
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   width: 100%;
 }
 
 .input::placeholder {
-  color: #999;
+  color: rgba(255, 255, 255, 0.7);
   opacity: 0.7;
 }
 
@@ -97,7 +159,7 @@ body {
   outline: none;
   border-color: #07c160;
   box-shadow: 0 4px 16px rgba(7, 193, 96, 0.15), 0 2px 6px rgba(0, 0, 0, 0.1);
-  background: #ffffff;
+  background: #252525;
   transform: translateY(-1px);
 }
 
@@ -110,7 +172,7 @@ body {
   justify-content: space-between;
   align-items: center;
   padding: 16px 18px;
-  background: linear-gradient(135deg, #ffffff 0%, #fafbfc 100%);
+  background: #252525;
   margin-bottom: 12px;
   border-radius: 12px;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.06), 0 1px 3px rgba(0, 0, 0, 0.04);
@@ -127,7 +189,7 @@ body {
   top: 0;
   bottom: 0;
   width: 4px;
-  background: linear-gradient(180deg, #07c160, #10ad7a);
+  background: #252525;
   opacity: 0;
   transition: opacity 0.3s;
 }
@@ -153,7 +215,7 @@ body {
 
 .member-name {
   font-size: 16px;
-  color: #1a1a1a;
+  color: #ffffff;
   font-weight: 600;
   letter-spacing: 0.3px;
 }
@@ -217,8 +279,8 @@ body {
 }
 
 .add-btn {
-  margin: 20px auto;
-  background: linear-gradient(135deg, #07c160 0%, #10ad7a 50%, #06a050 100%);
+  margin: 20px 0;
+  background: #07c160;
   color: white;
   font-size: 15px;
   font-weight: 600;
@@ -260,16 +322,6 @@ body {
   box-shadow: 0 2px 8px rgba(7, 193, 96, 0.25);
 }
 
-.statistics {
-  margin-top: 24px;
-  padding: 24px 20px;
-  background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
-  border-radius: 16px;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08), 0 2px 6px rgba(0, 0, 0, 0.05);
-  border: 1px solid rgba(0, 0, 0, 0.04);
-  position: relative;
-  overflow: hidden;
-}
 
 .amount-info {
   display: flex;
@@ -277,7 +329,7 @@ body {
   align-items: center;
   margin-bottom: 20px;
   padding-bottom: 16px;
-  border-bottom: 2px solid rgba(0, 0, 0, 0.06);
+  border-bottom: 2px solid rgba(255, 255, 255, 0.2);
   position: relative;
 }
 
@@ -320,9 +372,9 @@ body {
   font-size: 17px;
   font-weight: 700;
   margin-bottom: 16px;
-  color: #1a1a1a;
+  color: #ffffff;
   padding-bottom: 12px;
-  border-bottom: 2px solid rgba(0, 0, 0, 0.06);
+  border-bottom: 2px solid rgba(255, 255, 255, 0.2);
   position: relative;
   letter-spacing: 0.3px;
 }
@@ -341,7 +393,7 @@ body {
 .settlement-item, .transfer-item {
   padding: 14px 12px;
   margin: 6px 0;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   display: flex;
   align-items: center;
@@ -350,12 +402,12 @@ body {
 }
 
 .settlement-item:hover, .transfer-item:hover {
-  background: rgba(0, 0, 0, 0.02);
+  background: rgba(255, 255, 255, 0.1);
   transform: translateX(4px);
 }
 
 .settlement-item:active, .transfer-item:active {
-  background: rgba(0, 0, 0, 0.04);
+  background: rgba(255, 255, 255, 0.15);
   transform: translateX(0);
 }
 
@@ -367,7 +419,7 @@ body {
   flex: 1;
   padding-right: 12px;
   font-weight: 600;
-  color: #1a1a1a;
+  color: #ffffff;
   letter-spacing: 0.2px;
 }
 
@@ -380,7 +432,7 @@ body {
 }
 
 .positive {
-  color: #52c41a;
+  color: #07c160;
   font-weight: 700;
   background: linear-gradient(135deg, #f6ffed 0%, #d9f7be 100%);
   border: 1px solid rgba(82, 196, 26, 0.2);
@@ -407,7 +459,7 @@ body {
 }
 
 .modal-content {
-  background: white;
+  background: #252525;
   padding: 28px 24px;
   border-radius: 16px;
   width: 90%;
@@ -427,9 +479,10 @@ body {
 .modal-input {
   padding: 14px 16px;
   border-radius: 10px;
-  background: linear-gradient(135deg, #f7f8fa 0%, #ffffff 100%);
-  border: 2px solid #e8e8e8;
+  background: #252525;
+  border: 2px solid rgba(255, 255, 255, 0.3);
   font-size: 15px;
+  color: #ffffff;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   width: 100%;
   box-sizing: border-box;
@@ -437,9 +490,13 @@ body {
 
 .modal-input:focus {
   outline: none;
-  border-color: #07c160;
-  background: #ffffff;
+  border-color: rgba(255, 255, 255, 0.5);
+  background: #252525;
   box-shadow: 0 2px 8px rgba(7, 193, 96, 0.15);
+}
+
+.modal-input::placeholder {
+  color: rgba(255, 255, 255, 0.7);
 }
 
 .modal-input.name {
@@ -474,15 +531,15 @@ body {
 }
 
 .cancel {
-  background: linear-gradient(135deg, #f7f8fa 0%, #e8e8e8 100%);
-  color: #666;
-  border: 1px solid #d9d9d9;
+  background: #252525;
+  color: #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.3);
 }
 
 .cancel:hover {
-  background: linear-gradient(135deg, #e8e8e8 0%, #d9d9d9 100%);
+  background: #252525;
   transform: translateY(-1px);
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 6px rgba(7, 193, 96, 0.3);
 }
 
 .cancel:active {
@@ -490,7 +547,7 @@ body {
 }
 
 .confirm {
-  background: linear-gradient(135deg, #07c160 0%, #10ad7a 50%, #06a050 100%);
+  background: #07c160;
   color: white;
   box-shadow: 0 4px 12px rgba(7, 193, 96, 0.3), 0 2px 6px rgba(7, 193, 96, 0.2);
 }
@@ -576,7 +633,7 @@ body {
 
 .copy-records {
   margin-top: 20px;
-  background: #fff;
+  background: #252525;
   border-radius: 8px;
   box-shadow: 0 1px 6px rgba(0, 0, 0, 0.03);
   overflow: hidden;
@@ -584,8 +641,8 @@ body {
 
 .records-header {
   padding: 12px 16px;
-  background: #fff;
-  border-bottom: 1px solid #f0f0f0;
+  background: #252525;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -600,7 +657,7 @@ body {
 .records-title {
   font-size: 16px;
   font-weight: 600;
-  color: #1a1a1a;
+  color: #ffffff;
 }
 
 .record-btn {
@@ -628,10 +685,11 @@ body {
   align-items: center;
   padding: 14px 16px;
   transition: all 0.3s;
+  color: #ffffff;
 }
 
 .record-item:active {
-  background: #fafafa;
+  background: rgba(255, 255, 255, 0.1);
 }
 
 .record-info {
@@ -648,15 +706,17 @@ body {
 .record-name {
   font-size: 15px;
   font-weight: 500;
+  color: #ffffff;
 }
 
 .record-amount {
   font-weight: 600;
+  color: #ffffff;
 }
 
 .record-time {
   font-size: 12px;
-  color: #999;
+  color: rgba(255, 255, 255, 0.8);
 }
 
 .record-btn.recopy {
@@ -720,21 +780,22 @@ body {
 
 /* 页尾样式 */
 .footer {
-  background: #1a1a1a;
+  background: #0b0e14;
   padding: 20px;
   border-top: 1px solid rgba(255, 255, 255, 0.1);
   margin-top: auto;
 }
 
 .footer-content {
-  max-width: 600px;
+  max-width: var(--page-max-width);
   margin: 0 auto;
   width: 100%;
+  padding: 0 var(--page-padding);
   text-align: center;
 }
 
 .footer-content p {
-  color: #999;
+  color: #ffffff;
   font-size: 12px;
   margin: 0;
 }

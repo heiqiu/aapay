@@ -16,6 +16,7 @@ export function getElements() {
     settlementDetails: document.getElementById('settlementDetails'),
     transferDetails: document.getElementById('transferDetails'),
     copyBtn: document.getElementById('copyBtn'),
+    statisticsCard: document.getElementById('statisticsCard'),
     copyRecordsSection: document.getElementById('copyRecordsSection'),
     recordsList: document.getElementById('recordsList'),
     recordsContainer: document.getElementById('recordsContainer'),

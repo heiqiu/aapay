@@ -136,6 +136,13 @@ function updateSettlement() {
   state.settlementDetails = result.settlementDetails;
   state.transferDetails = result.transferDetails;
 
+  // 根据是否有成员来控制统计卡片的显示
+  if (state.members.length > 0) {
+    elements.statisticsCard.style.display = 'block';
+  } else {
+    elements.statisticsCard.style.display = 'none';
+  }
+
   // 更新UI
   elements.totalAmount.textContent = state.totalAmount.toString();
   elements.averageAmount.textContent = state.averageAmount.toString();
