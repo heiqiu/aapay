@@ -39,17 +39,18 @@ body {
 
 .header-content {
   max-width: var(--page-max-width);
-  margin: 0;
+  margin: 0 auto;
   width: 100%;
   padding: 0 var(--page-padding);
   display: flex;
+  align-items: center;
 }
 
 .logo {
   font-size: 24px;
   font-weight: 700;
   letter-spacing: 1px;
-  margin-left: 20%;
+  flex: 0 0 auto;
 }
 
 .logo-aa {
@@ -58,6 +59,23 @@ body {
 
 .logo-pay {
   color: #07c160;
+}
+
+.slogan {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  font-weight: 600;
+  color: #ffffff;
+  letter-spacing: 1px;
+  margin-left: 20px;
+}
+
+.slogan-highlight {
+  color: #07c160;
+  font-weight: 700;
 }
 
 /* 页中样式 */
