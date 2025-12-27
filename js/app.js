@@ -164,13 +164,13 @@ function copySettlementInfo() {
     text += `【${activityName}】\n`;
   }
 
-  text += `总金额：¥${totalAmount}\n`;
-  text += `每人应付：¥${averageAmount}\n\n`;
+  text += `总金额：${totalAmount}元\n`;
+  text += `每人应付：${averageAmount}元\n\n`;
   
   settlementDetailsText += `【结算明细】\n`;
   settlementDetails.forEach(item => {
     const type = item.diff > 0 ? '多付' : '少付';
-    settlementDetailsText += `${item.name}：${type} ¥${Math.abs(item.diff)}\n`;
+    settlementDetailsText += `${item.name}：${type} ${Math.abs(item.diff)}元\n`;
   });
   
   text += settlementDetailsText;
@@ -178,7 +178,7 @@ function copySettlementInfo() {
 
   transferDetailsText += `\n【转账方案】\n`;
   transferDetails.forEach(item => {
-    transferDetailsText += `${item.from} → ${item.to}：¥${item.amount}\n`;
+    transferDetailsText += `${item.from} → ${item.to}：${item.amount}元\n`;
   });
 
   text += transferDetailsText;
@@ -289,12 +289,12 @@ function mergeSelectedRecords() {
   mergedContent += `\n【合并结算明细】\n`;
   mergedSettlementDetails.forEach(item => {
     const type = item.diff > 0 ? '多付' : '少付';
-    mergedContent += `${item.name}：${type} ¥${Math.abs(item.diff)}\n`;
+    mergedContent += `${item.name}：${type} ${Math.abs(item.diff)}元\n`;
   });
 
   mergedContent += `\n【合并转账方案】\n`;
   mergedTransferDetails.forEach(item => {
-    mergedContent += `${item.from} → ${item.to}：¥${item.amount}\n`;
+    mergedContent += `${item.from} → ${item.to}：${item.amount}元\n`;
   });
 
   const newRecord = {

@@ -23,14 +23,14 @@ export function renderMembers(members, settlementDetails, container, onEdit, onD
     const settlementInfo = settlementMap[member.name];
     const diffDisplay = settlementInfo ? `
         <span class="${settlementInfo.diff > 0 ? 'member-overpaid' : 'member-underpaid'}">
-          ${settlementInfo.diff > 0 ? '多付' : '少付'}: ¥${Math.abs(settlementInfo.diff)}
+          ${settlementInfo.diff > 0 ? '多付' : '少付'}: ${Math.abs(settlementInfo.diff)}元
         </span>` : '';
     
     return `
     <div class="member-item">
       <div class="member-info">
         <span class="member-name">${member.name}</span>
-        <span class="member-amount">¥${member.amount}</span>
+        <span class="member-amount">已付${member.amount}元</span>
         ${diffDisplay}
       </div>
       <div class="member-actions">
@@ -71,7 +71,7 @@ export function renderSettlementDetails(settlementDetails, container) {
     <div class="settlement-item">
       <span>${item.name}</span>
       <span class="${item.diff > 0 ? 'positive' : 'negative'}">
-        ${item.diff > 0 ? '多付：' : '少付：'}¥${Math.abs(item.diff)}
+        ${item.diff > 0 ? '多付：' : '少付：'}${Math.abs(item.diff)}元
       </span>
     </div>
   `).join('');
@@ -88,7 +88,7 @@ export function renderTransferDetails(transferDetails, container) {
       <span>${item.from}</span>
       <span class="transfer-arrow">→</span>
       <span>${item.to}</span>
-      <span class="transfer-amount">¥${item.amount}</span>
+      <span class="transfer-amount">${item.amount}元</span>
     </div>
   `).join('');
 }
@@ -115,7 +115,7 @@ export function updateRecordsDisplay(records, elements, onRecopy, onDelete, onTo
         <div class="record-info">
           <div class="record-title">
             <span class="record-name">${record.activityName}</span>
-            <span class="record-amount">¥${record.totalAmount}</span>
+            <span class="record-amount">${record.totalAmount}元</span>
           </div>
           <span class="record-time">${record.time}</span>
         </div>
