@@ -1,122 +1,122 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>AAPAY - 让社交不再有负担</title>
-  <link rel="stylesheet" href="index.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AAPAY - 让社交不再有负担</title>
+    <link rel="stylesheet" href="index.css">
 </head>
 <body>
-  <!-- 页头 -->
-  <header class="header">
+<!-- 页头 -->
+<header class="header">
     <div class="header-content">
-      <div class="logo">
-        <span class="logo-aa">AA</span><span class="logo-pay">PAY</span>
-      </div>
-      <!-- 添加口号 -->
-      <div class="slogan">
-        <span class="slogan-text">聚餐打球，算账</span>
-        <span class="slogan-highlight">不愁</span>
-      </div>
+        <div class="logo">
+            <span class="logo-aa">AA</span><span class="logo-pay">PAY</span>
+        </div>
+        <!-- 添加口号 -->
+        <div class="slogan">
+            <span class="slogan-text">聚餐打球，算账</span>
+            <span class="slogan-highlight">不愁</span>
+        </div>
     </div>
-  </header>
+</header>
 
-  <!-- 页中 -->
-  <main class="main-content">
+<!-- 页中 -->
+<main class="main-content">
     <div class="scrollarea">
-      <div class="container">
-        <div class="form-section">
-        <!-- 活动名称输入和添加成员按钮 -->
-        <div class="input-group">
-          <input class="input" id="activityNameInput" placeholder="请输入活动名称" />
-          <button class="add-btn" id="addMemberBtn">+</button>
-        </div>
+        <div class="container">
+            <div class="form-section">
+                <!-- 活动名称输入和添加成员按钮 -->
+                <div class="input-group">
+                    <input class="input" id="activityNameInput" placeholder="请输入活动名称"/>
+                    <button class="add-btn" id="addMemberBtn">+</button>
+                </div>
 
-        <!-- 主要内容区域：两栏布局 -->
-        <div class="content-layout" id="contentLayout">
-          <!-- 左侧：成员列表区域 -->
-          <div class="members-section">
-            <div class="members-list" id="membersList"></div>
-          </div>
+                <!-- 主要内容区域：两栏布局 -->
+                <div class="content-layout" id="contentLayout">
+                    <!-- 左侧：成员列表区域 -->
+                    <div class="members-section">
+                        <div class="members-list" id="membersList"></div>
+                    </div>
 
-          <!-- 右侧：统计信息卡片 -->
-          <div class="statistics" id="statisticsCard" style="display: none;">
-            <div class="amount-info">
-              <div class="total-amount">总金额：¥<span id="totalAmount">0</span></div>
-              <div class="average-amount">人均：¥<span id="averageAmount">0</span></div>
+                    <!-- 右侧：统计信息卡片 -->
+                    <div class="statistics" id="statisticsCard" style="display: none;">
+                        <div class="amount-info">
+                            <div class="total-amount">总金额：¥<span id="totalAmount">0</span></div>
+                            <div class="average-amount">人均：¥<span id="averageAmount">0</span></div>
+                        </div>
+
+                        <!-- 结算明细 -->
+                        <div class="settlement-list">
+                            <div class="settlement-title">结算明细：</div>
+                            <div id="settlementDetails"></div>
+
+                            <div class="settlement-title" style="margin-top: 15px;">转账方案：</div>
+                            <div id="transferDetails"></div>
+                        </div>
+
+                        <!-- 添加复制按钮 -->
+                        <button class="copy-btn" id="copyBtn">复制</button>
+                    </div>
+                </div>
+
+                <!-- 复制记录 -->
+                <div class="copy-records" id="copyRecordsSection" style="display: none;">
+                    <div class="records-header">
+                        <div class="header-left">
+                            <span class="records-title">复制记录</span>
+                            <button class="record-btn clear" id="clearRecordsBtn">清空</button>
+                        </div>
+                        <button class="record-btn toggle" id="toggleRecordsBtn">展开</button>
+                    </div>
+
+                    <div class="records-list" id="recordsList" style="display: none;">
+                        <div id="recordsContainer"></div>
+                    </div>
+
+                    <button class="merge-btn" id="mergeBtn">合并记录</button>
+                </div>
             </div>
-            
-            <!-- 结算明细 -->
-            <div class="settlement-list">
-              <div class="settlement-title">结算明细：</div>
-              <div id="settlementDetails"></div>
 
-              <div class="settlement-title" style="margin-top: 15px;">转账方案：</div>
-              <div id="transferDetails"></div>
+            <!-- 添加成员弹窗 -->
+            <div class="modal" id="addModal" style="display: none;">
+                <div class="modal-content">
+                    <div class="modal-inputs">
+                        <input class="modal-input name" id="newMemberName" placeholder="姓名"/>
+                        <input class="modal-input amount" id="newMemberAmount" placeholder="金额"/>
+                    </div>
+                    <div class="modal-buttons">
+                        <button class="modal-btn cancel" id="cancelAddBtn">取消</button>
+                        <button class="modal-btn confirm" id="confirmAddBtn">确定</button>
+                    </div>
+                </div>
             </div>
 
-            <!-- 添加复制按钮 -->
-            <button class="copy-btn" id="copyBtn">复制</button>
-          </div>
-        </div>
-
-        <!-- 复制记录 -->
-        <div class="copy-records" id="copyRecordsSection" style="display: none;">
-          <div class="records-header">
-            <div class="header-left">
-              <span class="records-title">复制记录</span>
-              <button class="record-btn clear" id="clearRecordsBtn">清空</button>
+            <!-- 修改成员弹窗 -->
+            <div class="modal" id="editModal" style="display: none;">
+                <div class="modal-content">
+                    <div class="modal-inputs">
+                        <input class="modal-input name" id="editMemberName" placeholder="姓名"/>
+                        <input class="modal-input amount" id="editMemberAmount" placeholder="金额"/>
+                    </div>
+                    <div class="modal-buttons">
+                        <button class="modal-btn cancel" id="cancelEditBtn">取消</button>
+                        <button class="modal-btn confirm" id="confirmEditBtn">确定</button>
+                    </div>
+                </div>
             </div>
-            <button class="record-btn toggle" id="toggleRecordsBtn">展开</button>
-          </div>
-          
-          <div class="records-list" id="recordsList" style="display: none;">
-            <div id="recordsContainer"></div>
-          </div>
-
-          <button class="merge-btn" id="mergeBtn">合并记录</button>
         </div>
-      </div>
+</main>
 
-      <!-- 添加成员弹窗 -->
-      <div class="modal" id="addModal" style="display: none;">
-        <div class="modal-content">
-          <div class="modal-inputs">
-            <input class="modal-input name" id="newMemberName" placeholder="姓名" />
-            <input class="modal-input amount" id="newMemberAmount" placeholder="金额" />
-          </div>
-          <div class="modal-buttons">
-            <button class="modal-btn cancel" id="cancelAddBtn">取消</button>
-            <button class="modal-btn confirm" id="confirmAddBtn">确定</button>
-          </div>
-        </div>
-      </div>
-
-      <!-- 修改成员弹窗 -->
-      <div class="modal" id="editModal" style="display: none;">
-        <div class="modal-content">
-          <div class="modal-inputs">
-            <input class="modal-input name" id="editMemberName" placeholder="姓名" />
-            <input class="modal-input amount" id="editMemberAmount" placeholder="金额" />
-          </div>
-          <div class="modal-buttons">
-            <button class="modal-btn cancel" id="cancelEditBtn">取消</button>
-            <button class="modal-btn confirm" id="confirmEditBtn">确定</button>
-          </div>
-        </div>
-      </div>
-    </div>
-  </main>
-
-  <!-- 页尾 -->
-  <footer class="footer">
+<!-- 页尾 -->
+<footer class="footer">
     <div class="footer-content">
-      <p>&copy; 2024 AAPAY. 让社交不再有负担</p>
+        <p>&copy; 2024 AAPAY. 让社交不再有负担</p>
     </div>
-  </footer>
+</footer>
 
-  <div class="toast" id="toast"></div>
+<div class="toast" id="toast"></div>
 
-  <script type="module" src="js/app.js"></script>
+<script type="module" src="js/app.js"></script>
 </body>
 </html>
