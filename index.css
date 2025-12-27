@@ -378,30 +378,27 @@ body {
   padding: 12px 20px;
   border-radius: 12px;
   letter-spacing: 0.5px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
   transition: all 0.3s ease;
 }
 
 .total-amount {
   color: #ffffff;
-  background: linear-gradient(135deg, #f5222d 0%, #ff4d4f 100%);
-  border: 1px solid rgba(255, 77, 79, 0.3);
+  border: 1px solid rgba(7, 193, 96, 0.3);
 }
 
 .total-amount:hover {
   transform: translateY(-2px);
-  box-shadow: 0 6px 16px rgba(245, 34, 45, 0.3);
+  box-shadow: 0 6px 16px rgba(7, 193, 96, 0.3);
 }
 
 .average-amount {
   color: #ffffff;
-  background: linear-gradient(135deg, #1890ff 0%, #096dd9 100%);
-  border: 1px solid rgba(9, 109, 217, 0.3);
+  border: 1px solid rgba(7, 193, 96, 0.3);
 }
 
 .average-amount:hover {
   transform: translateY(-2px);
-  box-shadow: 0 6px 16px rgba(24, 144, 255, 0.3);
+  box-shadow: 0 6px 16px rgba(7, 193, 96, 0.3);
 }
 
 .settlement-list {
@@ -462,13 +459,11 @@ body {
 }
 
 .positive {
-  color: #ffffff;
+  color: #07c160;
   font-weight: 700;
-  background: linear-gradient(135deg, #07c160 0%, #06a14a 100%);
   border: 1px solid rgba(7, 193, 96, 0.3);
   padding: 6px 12px;
   border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(7, 193, 96, 0.2);
   transition: all 0.3s ease;
 }
 
@@ -478,13 +473,11 @@ body {
 }
 
 .negative {
-  color: #ffffff;
+  color: #f5222d;
   font-weight: 700;
-  background: linear-gradient(135deg, #f5222d 0%, #d9191e 100%);
   border: 1px solid rgba(245, 34, 45, 0.3);
   padding: 6px 12px;
   border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(245, 34, 45, 0.2);
   transition: all 0.3s ease;
 }
 
