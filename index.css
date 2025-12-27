@@ -91,10 +91,13 @@ body {
   display: flex;
   gap: 12px;
   align-items: center;
+  margin-left: 20%;
+  width: 50%;
 }
 
 .input-group .input {
-  flex: 0 0 300px;
+  /*flex: 0 0 300px;*/
+  flex: 1;
   margin-bottom: 0;
 }
 
