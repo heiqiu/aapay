@@ -281,53 +281,30 @@ body {
 }
 
 .edit-btn, .delete-btn {
-  font-size: 13px;
-  padding: 6px 14px;
-  border-radius: 8px;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  cursor: pointer;
-  border: none;
-  font-weight: 500;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-}
-
-.edit-btn {
-  color: #07c160;
-  background: transparent;
-  /*border: 1px solid rgba(24, 144, 255, 0.2);*/
-}
-
-.edit-btn:hover {
-  background: transparent;
-  transform: translateY(-1px);
-  box-shadow: 0 2px 6px #07c160;
-}
-
-.edit-btn:active {
-  transform: translateY(0);
-}
-
-.delete-btn {
   color: #07c160;
   background: transparent;
   border: none;
   padding: 0;
   min-width: auto;
+  width: 24px;
+  height: 24px;
   display: flex;
   align-items: center;
   justify-content: center;
-}
-
-.delete-btn:hover {
-  background: transparent;
-  transform: translateY(-1px);
-  box-shadow: 0 2px 6px #07c160;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: pointer;
   border-radius: 4px;
 }
 
-.delete-btn:active {
+.edit-btn:hover, .delete-btn:hover {
+  background: rgba(7, 193, 96, 0.1);
+  transform: translateY(-1px);
+  box-shadow: 0 2px 6px rgba(7, 193, 96, 0.2);
+}
+
+.edit-btn:active, .delete-btn:active {
   transform: translateY(0);
-  background: #07c160;
+  background: rgba(7, 193, 96, 0.2);
 }
 
 .add-btn {
@@ -758,12 +735,51 @@ body {
 
 .record-btn.recopy {
   color: #1890ff;
-  background: #f0f9ff;
+  background: transparent;
+  border: none;
+  padding: 0;
+  min-width: auto;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: pointer;
+  border-radius: 4px;
 }
 
 .record-btn.delete {
   color: #ff4d4f;
-  background: #fff1f0;
+  background: transparent;
+  border: none;
+  padding: 0;
+  min-width: auto;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.record-btn.recopy:hover {
+  background: rgba(24, 144, 255, 0.1);
+  transform: translateY(-1px);
+  box-shadow: 0 2px 6px rgba(24, 144, 255, 0.2);
+}
+
+.record-btn.delete:hover {
+  background: rgba(255, 77, 79, 0.1);
+  transform: translateY(-1px);
+  box-shadow: 0 2px 6px rgba(255, 77, 79, 0.2);
+}
+
+.record-btn.recopy:active, .record-btn.delete:active {
+  transform: translateY(0);
+  background: rgba(255, 77, 79, 0.2);
 }
 
 .record-actions {
