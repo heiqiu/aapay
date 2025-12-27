@@ -292,15 +292,15 @@ body {
 }
 
 .edit-btn {
-  color: #1890ff;
-  background: linear-gradient(135deg, #e6f7ff 0%, #bae7ff 100%);
-  border: 1px solid rgba(24, 144, 255, 0.2);
+  color: #07c160;
+  background: transparent;
+  /*border: 1px solid rgba(24, 144, 255, 0.2);*/
 }
 
 .edit-btn:hover {
-  background: linear-gradient(135deg, #bae7ff 0%, #91d5ff 100%);
+  background: transparent;
   transform: translateY(-1px);
-  box-shadow: 0 2px 6px rgba(24, 144, 255, 0.2);
+  box-shadow: 0 2px 6px #07c160;
 }
 
 .edit-btn:active {
@@ -308,19 +308,26 @@ body {
 }
 
 .delete-btn {
-  color: #ff4d4f;
-  background: linear-gradient(135deg, #fff1f0 0%, #ffccc7 100%);
-  border: 1px solid rgba(255, 77, 79, 0.2);
+  color: #07c160;
+  background: transparent;
+  border: none;
+  padding: 0;
+  min-width: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .delete-btn:hover {
-  background: linear-gradient(135deg, #ffccc7 0%, #ffa39e 100%);
+  background: transparent;
   transform: translateY(-1px);
-  box-shadow: 0 2px 6px rgba(255, 77, 79, 0.2);
+  box-shadow: 0 2px 6px #07c160;
+  border-radius: 4px;
 }
 
 .delete-btn:active {
   transform: translateY(0);
+  background: #07c160;
 }
 
 .add-btn {
