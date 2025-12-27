@@ -17,8 +17,12 @@ export function renderMembers(members, container, onEdit, onDelete) {
         <span class="member-amount">¥${member.amount}</span>
       </div>
       <div class="member-actions">
-        <button class="edit-btn" data-index="${index}">修改</button>
-        <button class="delete-btn" data-index="${index}">删除</button>
+        <button class="edit-btn" data-index="${index}">
+          <img src="icons/clear.svg" alt="修改" class="icon">
+        </button>
+        <button class="delete-btn" data-index="${index}">
+          <img src="icons/remove.svg" alt="删除" class="icon">
+        </button>
       </div>
     </div>
   `).join('');
