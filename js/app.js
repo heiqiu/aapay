@@ -63,7 +63,6 @@ function addMember() {
   });
 
   hideAddModal();
-  renderMembers(state.members, elements.membersList, showEditModal, deleteMember);
   updateSettlement();
 }
 
@@ -72,7 +71,6 @@ function addMember() {
  */
 function deleteMember(index) {
   state.members.splice(index, 1);
-  renderMembers(state.members, elements.membersList, showEditModal, deleteMember);
   updateSettlement();
 }
 
@@ -122,7 +120,6 @@ function updateMember() {
   };
 
   hideEditModal();
-  renderMembers(state.members, elements.membersList, showEditModal, deleteMember);
   updateSettlement();
 }
 
@@ -146,8 +143,10 @@ function updateSettlement() {
   // 更新UI
   elements.totalAmount.textContent = state.totalAmount.toString();
   elements.averageAmount.textContent = state.averageAmount.toString();
-  renderSettlementDetails(state.settlementDetails, elements.settlementDetails);
+  // renderSettlementDetails(state.settlementDetails, elements.settlementDetails);
   renderTransferDetails(state.transferDetails, elements.transferDetails);
+  // 同时更新成员列表，显示多付少付信息
+  renderMembers(state.members, state.settlementDetails, elements.membersList, showEditModal, deleteMember);
 }
 
 /**
@@ -352,7 +351,6 @@ function init() {
   });
 
   // 初始渲染
-  renderMembers(state.members, elements.membersList, showEditModal, deleteMember);
   updateSettlement();
 }
 

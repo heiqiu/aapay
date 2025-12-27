@@ -283,6 +283,26 @@ body {
   /*border: 1px solid rgba(245, 34, 45, 0.1);*/
 }
 
+.member-overpaid {
+  color: #07c160;
+  font-weight: 600;
+  font-size: 14px;
+  padding: 4px 10px;
+  border-radius: 6px;
+  background: rgba(7, 193, 96, 0.1);
+  border: 1px solid rgba(7, 193, 96, 0.2);
+}
+
+.member-underpaid {
+  color: #f5222d;
+  font-weight: 600;
+  font-size: 14px;
+  padding: 4px 10px;
+  border-radius: 6px;
+  background: rgba(245, 34, 45, 0.1);
+  border: 1px solid rgba(245, 34, 45, 0.2);
+}
+
 .member-actions {
   display: flex;
   gap: 12px;

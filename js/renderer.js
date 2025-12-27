@@ -5,16 +5,33 @@
 /**
  * 渲染成员列表
  * @param {Array} members - 成员数组
+ * @param {Array} settlementDetails - 结算明细数组
  * @param {HTMLElement} container - 容器元素
  * @param {Function} onEdit - 编辑回调
  * @param {Function} onDelete - 删除回调
  */
-export function renderMembers(members, container, onEdit, onDelete) {
-  container.innerHTML = members.map((member, index) => `
+export function renderMembers(members, settlementDetails, container, onEdit, onDelete) {
+  // 创建结算详情映射，以便快速查找
+  const settlementMap = {};
+  if (settlementDetails) {
+    settlementDetails.forEach(item => {
+      settlementMap[item.name] = item;
+    });
+  }
+  
+  container.innerHTML = members.map((member, index) => {
+    const settlementInfo = settlementMap[member.name];
+    const diffDisplay = settlementInfo ? `
+        <span class="${settlementInfo.diff > 0 ? 'member-overpaid' : 'member-underpaid'}">
+          ${settlementInfo.diff > 0 ? '多付' : '少付'}: ¥${Math.abs(settlementInfo.diff)}
+        </span>` : '';
+    
+    return `
     <div class="member-item">
       <div class="member-info">
         <span class="member-name">${member.name}</span>
         <span class="member-amount">¥${member.amount}</span>
+        ${diffDisplay}
       </div>
       <div class="member-actions">
         <button class="edit-btn" data-index="${index}">
@@ -25,7 +42,8 @@ export function renderMembers(members, container, onEdit, onDelete) {
         </button>
       </div>
     </div>
-  `).join('');
+  `;
+  }).join('');
 
   // 绑定事件
   container.querySelectorAll('.edit-btn').forEach(btn => {
