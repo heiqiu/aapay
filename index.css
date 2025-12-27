@@ -266,13 +266,13 @@ body {
 }
 
 .member-amount {
-  color: #f5222d;
+  color: #07c160;
   font-weight: 600;
   font-size: 16px;
-  background: linear-gradient(135deg, #fff1f0 0%, #ffe7e5 100%);
+  /*background: linear-gradient(135deg, #fff1f0 0%, #ffe7e5 100%);*/
   padding: 4px 12px;
   border-radius: 8px;
-  border: 1px solid rgba(245, 34, 45, 0.1);
+  /*border: 1px solid rgba(245, 34, 45, 0.1);*/
 }
 
 .member-actions {
