@@ -642,17 +642,17 @@ body {
 
 .copy-btn {
   margin-top: 24px;
-  background: linear-gradient(135deg, #1890ff 0%, #36cfc9 50%, #13c2c2 100%);
+  background: #07c160;
   color: white;
-  font-size: 15px;
+  font-size: 13px;
   font-weight: 600;
-  padding: 14px 0;
+  padding: 8px 0;
   border: none;
-  border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(24, 144, 255, 0.3), 0 2px 6px rgba(24, 144, 255, 0.2);
+  border-radius: 6px;
+  box-shadow: 0 4px 12px rgba(7, 193, 96, 0.3), 0 2px 6px rgba(7, 193, 96, 0.2);
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   cursor: pointer;
-  width: 100%;
+  width: 30%;
   letter-spacing: 0.5px;
   position: relative;
   overflow: hidden;
@@ -671,7 +671,7 @@ body {
 
 .copy-btn:hover {
   transform: translateY(-2px);
-  box-shadow: 0 6px 16px rgba(24, 144, 255, 0.4), 0 3px 8px rgba(24, 144, 255, 0.3);
+  box-shadow: 0 6px 16px rgba(7, 193, 96, 0.4), 0 3px 8px rgba(7, 193, 96, 0.3);
 }
 
 .copy-btn:hover::before {
@@ -680,7 +680,7 @@ body {
 
 .copy-btn:active {
   transform: translateY(0) scale(0.98);
-  box-shadow: 0 2px 8px rgba(24, 144, 255, 0.25);
+  box-shadow: 0 2px 8px rgba(7, 193, 96, 0.25);
 }
 
 .copy-records {
