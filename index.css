@@ -726,7 +726,7 @@ body {
 .header-left {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 8px;
 }
 
 .records-title {
@@ -737,21 +737,62 @@ body {
 
 .record-btn {
   font-size: 13px;
-  padding: 4px 12px;
-  border-radius: 4px;
+  padding: 6px 12px;
+  border-radius: 6px;
   transition: all 0.3s;
   border: none;
   cursor: pointer;
+  min-width: auto;
+  height: auto;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
 }
 
 .record-btn.clear {
-  color: #ff4d4f;
-  background: #fff1f0;
+  color: #ffffff;
+  background: #ff4d4f;
+}
+
+.record-btn.clear:hover {
+  background: #ff7875;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(255, 77, 79, 0.3);
+}
+
+.record-btn.clear:active {
+  transform: translateY(0) scale(0.98);
+  background: #f5222d;
 }
 
 .record-btn.toggle {
-  color: #1890ff;
-  background: #e6f7ff;
+  color: #ffffff;
+  background: #1890ff;
+}
+
+.record-btn.toggle:hover {
+  background: #40a9ff;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(24, 144, 255, 0.3);
+}
+
+.record-btn.toggle:active {
+  transform: translateY(0) scale(0.98);
+  background: #1890ff;
+}
+
+.record-btn.merge {
+  color: #ffffff;
+  background: #52c41a;
+}
+
+.record-btn.merge:hover {
+  background: #73d13d;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(82, 196, 26, 0.3);
+}
+
+.record-btn.merge:active {
+  transform: translateY(0) scale(0.98);
+  background: #52c41a;
 }
 
 .record-item {
@@ -848,19 +889,7 @@ body {
   gap: 8px;
 }
 
-.merge-btn {
-  margin-top: 20px;
-  background: linear-gradient(135deg, #1890ff, #36cfc9);
-  color: white;
-  font-size: 14px;
-  padding: 10px 0;
-  border: none;
-  border-radius: 6px;
-  box-shadow: 0 2px 6px rgba(24, 144, 255, 0.2);
-  transition: all 0.3s;
-  cursor: pointer;
-  width: 100%;
-}
+
 
 .checkbox-label {
   display: flex;

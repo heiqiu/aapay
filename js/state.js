@@ -22,7 +22,7 @@ export function createState() {
     editMemberAmount: '',
     editingIndex: -1,
     copyRecords: [],
-    showRecords: false,
+    showRecords: true,
   };
 }
 

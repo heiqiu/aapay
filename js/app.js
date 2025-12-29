@@ -323,6 +323,10 @@ function init() {
   // 从本地存储加载记录
   state.copyRecords = loadRecordsFromStorage();
   updateRecordsDisplay(state.copyRecords, elements, recopyRecord, deleteRecord, toggleRecordSelection);
+  
+  // 设置记录列表的初始显示状态
+  elements.recordsList.style.display = state.showRecords ? 'block' : 'none';
+  elements.toggleRecordsBtn.textContent = state.showRecords ? '收起' : '展开';
 
   // 事件绑定
   elements.activityNameInput.addEventListener('input', (e) => {
