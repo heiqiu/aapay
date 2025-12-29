@@ -395,40 +395,22 @@ body {
   margin-top: 20px;
   margin-bottom: 20px;
   padding: 12px 18px;
-  background: #252525;
-  border-radius: 12px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.06), 0 1px 3px rgba(0, 0, 0, 0.04);
-  border: 1px solid rgba(0, 0, 0, 0.04);
 }
 
 
 .total-amount, .average-amount {
   font-size: 20px;
   font-weight: 700;
-  padding: 12px 20px;
-  border-radius: 12px;
   letter-spacing: 0.5px;
   transition: all 0.3s ease;
 }
 
 .total-amount {
-  color: #ffffff;
-  border: 1px solid rgba(7, 193, 96, 0.3);
-}
-
-.total-amount:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 16px rgba(7, 193, 96, 0.3);
+  color: #07c160;
 }
 
 .average-amount {
-  color: #ffffff;
-  border: 1px solid rgba(7, 193, 96, 0.3);
-}
-
-.average-amount:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 16px rgba(7, 193, 96, 0.3);
+  color: #07c160;
 }
 
 .settlement-list {
