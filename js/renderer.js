@@ -121,8 +121,12 @@ export function updateRecordsDisplay(records, elements, onRecopy, onDelete, onTo
         </div>
       </label>
       <div class="record-actions">
-        <button class="record-btn recopy" data-id="${record.id}"><img src="icons/clear.svg" alt="复制" class="icon"></button>
-        <button class="record-btn delete" data-id="${record.id}"><img src="icons/remove.svg" alt="删除" class="icon"></button>
+        <button class="record-btn recopy" data-id="${record.id}">
+            <img src="icons/respect.svg" alt="复制" class="icon">
+        </button>
+        <button class="record-btn delete" data-id="${record.id}">
+            <img src="icons/del4.svg" alt="删除" class="icon">
+        </button>
       </div>
     </div>
   `).join('');
