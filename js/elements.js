@@ -33,6 +33,7 @@ export function getElements() {
     editMemberAmount: document.getElementById('editMemberAmount'),
     cancelEditBtn: document.getElementById('cancelEditBtn'),
     confirmEditBtn: document.getElementById('confirmEditBtn'),
+    amountInfo: document.getElementById('amountInfo'),
     toast: document.getElementById('toast'),
   };
 }

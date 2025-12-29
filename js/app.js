@@ -133,11 +133,13 @@ function updateSettlement() {
   state.settlementDetails = result.settlementDetails;
   state.transferDetails = result.transferDetails;
 
-  // 根据是否有成员来控制统计卡片的显示
+  // 根据是否有成员来控制统计卡片和金额信息的显示
   if (state.members.length > 0) {
     elements.statisticsCard.style.display = 'block';
+    elements.amountInfo.style.display = 'flex';
   } else {
     elements.statisticsCard.style.display = 'none';
+    elements.amountInfo.style.display = 'none';
   }
 
   // 更新UI

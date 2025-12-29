@@ -38,15 +38,15 @@
                 <div class="content-layout" id="contentLayout">
                     <!-- 左侧：成员列表区域 -->
                     <div class="members-section">
+                        <div class="amount-info" id="amountInfo" style="display: none;">
+                            <div class="total-amount">总金额：<span id="totalAmount">0</span>元</div>
+                            <div class="average-amount">人均：<span id="averageAmount">0</span>元</div>
+                        </div>
                         <div class="members-list" id="membersList"></div>
                     </div>
 
                     <!-- 右侧：统计信息卡片 -->
                     <div class="statistics" id="statisticsCard" style="display: none;">
-                        <div class="amount-info">
-                            <div class="total-amount">总金额：<span id="totalAmount">0</span>元</div>
-                            <div class="average-amount">人均：<span id="averageAmount">0</span>元</div>
-                        </div>
 
                         <!-- 结算明细 -->
                         <div class="settlement-list">
@@ -54,7 +54,7 @@
 <!--                            <div id="settlementDetails"></div>-->
 
                             <div class="settlement-title" style="margin-top: 15px;">转账方案：
-                                <button class="copy-btn" id="copyBtn">生成</button>
+                                <button class="copy-btn" id="copyBtn">复制</button>
                             </div>
                             <div id="transferDetails"></div>
                         </div>
