@@ -48,14 +48,16 @@ export function renderMembers(members, settlementDetails, container, onEdit, onD
   // 绑定事件
   container.querySelectorAll('.edit-btn').forEach(btn => {
     btn.addEventListener('click', (e) => {
-      const index = parseInt(e.target.getAttribute('data-index') || '0');
+      const button = e.target.closest('.edit-btn');
+      const index = parseInt(button.getAttribute('data-index') || '0');
       onEdit(index);
     });
   });
 
   container.querySelectorAll('.delete-btn').forEach(btn => {
     btn.addEventListener('click', (e) => {
-      const index = parseInt(e.target.getAttribute('data-index') || '0');
+      const button = e.target.closest('.delete-btn');
+      const index = parseInt(button.getAttribute('data-index') || '0');
       onDelete(index);
     });
   });
@@ -141,14 +143,16 @@ export function updateRecordsDisplay(records, elements, onRecopy, onDelete, onTo
 
   elements.recordsContainer.querySelectorAll('.recopy').forEach(btn => {
     btn.addEventListener('click', (e) => {
-      const id = parseInt(e.target.getAttribute('data-id') || '0');
+      const button = e.target.closest('.record-btn');
+      const id = parseInt(button.getAttribute('data-id') || '0');
       onRecopy(id);
     });
   });
 
   elements.recordsContainer.querySelectorAll('.delete').forEach(btn => {
     btn.addEventListener('click', (e) => {
-      const id = parseInt(e.target.getAttribute('data-id') || '0');
+      const button = e.target.closest('.record-btn');
+      const id = parseInt(button.getAttribute('data-id') || '0');
       onDelete(id);
     });
   });
