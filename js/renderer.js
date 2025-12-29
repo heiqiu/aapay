@@ -21,7 +21,7 @@ export function renderMembers(members, settlementDetails, container, onEdit, onD
   
   container.innerHTML = members.map((member, index) => {
     const settlementInfo = settlementMap[member.name];
-    const diffDisplay = settlementInfo ? `
+    const diffDisplay = settlementInfo && settlementInfo.diff !== 0 ? `
         <span class="${settlementInfo.diff > 0 ? 'member-overpaid' : 'member-underpaid'}">
           ${settlementInfo.diff > 0 ? '多付' : '少付'}: ${Math.abs(settlementInfo.diff)}元
         </span>` : '';
@@ -69,7 +69,7 @@ export function renderMembers(members, settlementDetails, container, onEdit, onD
  * @param {HTMLElement} container - 容器元素
  */
 export function renderSettlementDetails(settlementDetails, container) {
-  container.innerHTML = settlementDetails.map(item => `
+  container.innerHTML = settlementDetails.filter(item => item.diff !== 0).map(item => `
     <div class="settlement-item">
       <span>${item.name}</span>
       <span class="${item.diff > 0 ? 'positive' : 'negative'}">

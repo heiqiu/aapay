@@ -392,6 +392,9 @@ body {
 }
 
 .members-section .amount-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   margin-top: 20px;
   margin-bottom: 20px;
   padding: 12px 18px;
@@ -431,7 +434,7 @@ body {
   justify-content: space-between;
 }
 
-.settlement-title .copy-btn {
+.amount-info .copy-btn {
   margin-left: 10px;
   align-self: center;
   padding: 4px 10px;
