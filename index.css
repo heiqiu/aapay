@@ -506,8 +506,8 @@ body {
   background: #252525;
   padding: 28px 24px;
   border-radius: 16px;
-  width: 90%;
-  max-width: 500px;
+  width: 60%;
+  max-width: 350px;
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15), 0 4px 12px rgba(0, 0, 0, 0.1);
   position: relative;
   overflow: hidden;
