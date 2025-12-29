@@ -14,9 +14,7 @@ export function getElements() {
     totalAmount: document.getElementById('totalAmount'),
     averageAmount: document.getElementById('averageAmount'),
     settlementDetails: document.getElementById('settlementDetails'),
-    transferDetails: document.getElementById('transferDetails'),
     copyBtn: document.getElementById('copyBtn'),
-    statisticsCard: document.getElementById('statisticsCard'),
     copyRecordsSection: document.getElementById('copyRecordsSection'),
     recordsList: document.getElementById('recordsList'),
     recordsContainer: document.getElementById('recordsContainer'),
@@ -33,8 +31,12 @@ export function getElements() {
     editMemberAmount: document.getElementById('editMemberAmount'),
     cancelEditBtn: document.getElementById('cancelEditBtn'),
     confirmEditBtn: document.getElementById('confirmEditBtn'),
+    transferModal: document.getElementById('transferModal'),
+    transferDetailsModal: document.getElementById('transferDetailsModal'),
+    closeTransferModal: document.getElementById('closeTransferModal'),
+    cancelTransferBtn: document.getElementById('cancelTransferBtn'),
+    copyTransferBtn: document.getElementById('copyTransferBtn'),
     amountInfo: document.getElementById('amountInfo'),
     toast: document.getElementById('toast'),
   };
 }
-

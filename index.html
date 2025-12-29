@@ -46,18 +46,7 @@
                         <div class="members-list" id="membersList"></div>
                     </div>
 
-                    <!-- 右侧：统计信息卡片 -->
-                    <div class="statistics" id="statisticsCard" style="display: none;">
 
-                        <!-- 结算明细 -->
-                        <div class="settlement-list">
-<!--                            <div class="settlement-title">结算明细：</div>-->
-<!--                            <div id="settlementDetails"></div>-->
-
-                            <div class="settlement-title" style="margin-top: 15px;">转账方案：</div>
-                            <div id="transferDetails"></div>
-                        </div>
-                    </div>
                 </div>
 
                 <!-- 方案记录 -->
@@ -101,6 +90,21 @@
                     <div class="modal-buttons">
                         <button class="modal-btn cancel" id="cancelEditBtn">取消</button>
                         <button class="modal-btn confirm" id="confirmEditBtn">确定</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 转账记录弹窗 -->
+            <div class="modal" id="transferModal" style="display: none;">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h3>转账方案</h3>
+                        <button class="modal-close" id="closeTransferModal">×</button>
+                    </div>
+                    <div class="transfer-details" id="transferDetailsModal"></div>
+                    <div class="modal-buttons">
+                        <button class="modal-btn cancel" id="cancelTransferBtn">取消</button>
+                        <button class="modal-btn confirm" id="copyTransferBtn">复制</button>
                     </div>
                 </div>
             </div>

@@ -143,21 +143,6 @@ body {
   flex-direction: column;
 }
 
-/* 右侧：统计卡片 */
-.statistics {
-  flex: 0 0 400px;
-  margin-top: 0;
-  padding: 24px 20px;
-  background: #252525;
-  border-radius: 16px;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08), 0 2px 6px rgba(0, 0, 0, 0.05);
-  border: 1px solid rgba(0, 0, 0, 0.04);
-  position: sticky;
-  top: 20px;
-  max-height: calc(100vh - 100px);
-  overflow-y: auto;
-}
-
 /* 响应式：小屏幕时改为单栏布局 */
 @media (max-width: 768px) {
   .input-group {
@@ -177,13 +162,6 @@ body {
   .content-layout {
     flex-direction: column;
     gap: 20px;
-  }
-
-  .statistics {
-    flex: 1;
-    width: 100%;
-    position: static;
-    max-height: none;
   }
 
   .logo {
@@ -529,10 +507,58 @@ body {
   padding: 28px 24px;
   border-radius: 16px;
   width: 90%;
-  max-width: 360px;
+  max-width: 500px;
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15), 0 4px 12px rgba(0, 0, 0, 0.1);
   position: relative;
   overflow: hidden;
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.modal-header h3 {
+  margin: 0;
+  font-size: 18px;
+  color: #ffffff;
+}
+
+.modal-close {
+  background: none;
+  border: none;
+  font-size: 24px;
+  color: #ffffff;
+  cursor: pointer;
+  padding: 0;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: background 0.3s;
+}
+
+.modal-close:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.transfer-details {
+  max-height: 300px;
+  overflow-y: auto;
+  margin-bottom: 20px;
+}
+
+.transfer-details .transfer-item {
+  padding: 10px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.transfer-details .transfer-item:last-child {
+  border-bottom: none;
 }
 
 .modal-inputs {

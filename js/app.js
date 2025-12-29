@@ -133,12 +133,10 @@ function updateSettlement() {
   state.settlementDetails = result.settlementDetails;
   state.transferDetails = result.transferDetails;
 
-  // 根据是否有成员来控制统计卡片和金额信息的显示
+  // 根据是否有成员来控制金额信息的显示
   if (state.members.length > 0) {
-    elements.statisticsCard.style.display = 'block';
     elements.amountInfo.style.display = 'flex';
   } else {
-    elements.statisticsCard.style.display = 'none';
     elements.amountInfo.style.display = 'none';
   }
 
@@ -146,7 +144,6 @@ function updateSettlement() {
   elements.totalAmount.textContent = state.totalAmount.toString();
   elements.averageAmount.textContent = state.averageAmount.toString();
   // renderSettlementDetails(state.settlementDetails, elements.settlementDetails);
-  renderTransferDetails(state.transferDetails, elements.transferDetails);
   // 同时更新成员列表，显示多付少付信息
   renderMembers(state.members, state.settlementDetails, elements.membersList, showEditModal, deleteMember);
 }
@@ -215,12 +212,20 @@ function deleteRecord(id) {
 }
 
 /**
- * 重新复制记录
+ * 重新复制记录 - 显示转账记录弹窗
  */
 function recopyRecord(id) {
   const record = state.copyRecords.find(record => record.id === id);
   if (record) {
-    copyToClipboardWrapper(record.content);
+    // 计算并渲染转账详情到弹窗
+    const transferDetails = calculateTransferDetails(record.settlementDetails);
+    renderTransferDetails(transferDetails, elements.transferDetailsModal);
+    
+    // 显示转账记录弹窗
+    elements.transferModal.style.display = 'flex';
+    
+    // 存储当前记录ID，用于复制按钮
+    state.currentRecordId = id;
   }
 }
 
@@ -342,7 +347,24 @@ function init() {
   elements.toggleRecordsBtn.addEventListener('click', toggleRecords);
   elements.clearRecordsBtn.addEventListener('click', clearRecords);
   elements.mergeBtn.addEventListener('click', mergeSelectedRecords);
-
+  
+  // 转账记录弹窗事件
+  elements.closeTransferModal.addEventListener('click', () => {
+    elements.transferModal.style.display = 'none';
+  });
+  
+  elements.cancelTransferBtn.addEventListener('click', () => {
+    elements.transferModal.style.display = 'none';
+  });
+  
+  elements.copyTransferBtn.addEventListener('click', () => {
+    const record = state.copyRecords.find(r => r.id === state.currentRecordId);
+    if (record) {
+      copyToClipboardWrapper(record.content);
+      elements.transferModal.style.display = 'none';
+    }
+  });
+  
   // 点击模态框外部关闭
   elements.addModal.addEventListener('click', (e) => {
     if (e.target === elements.addModal) {
@@ -353,6 +375,12 @@ function init() {
   elements.editModal.addEventListener('click', (e) => {
     if (e.target === elements.editModal) {
       hideEditModal();
+    }
+  });
+  
+  elements.transferModal.addEventListener('click', (e) => {
+    if (e.target === elements.transferModal) {
+      elements.transferModal.style.display = 'none';
     }
   });
 
