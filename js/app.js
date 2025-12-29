@@ -245,7 +245,16 @@ function toggleRecordSelection(id, checked) {
 function toggleRecords() {
   state.showRecords = !state.showRecords;
   elements.recordsList.style.display = state.showRecords ? 'block' : 'none';
-  elements.toggleRecordsBtn.textContent = state.showRecords ? '收起' : '展开';
+  
+  // 更新箭头方向
+  const toggleIcon = elements.toggleRecordsBtn.querySelector('.toggle-icon');
+  if (toggleIcon) {
+    if (state.showRecords) {
+      toggleIcon.classList.add('expanded');
+    } else {
+      toggleIcon.classList.remove('expanded');
+    }
+  }
 }
 
 /**
@@ -331,7 +340,16 @@ function init() {
   
   // 设置记录列表的初始显示状态
   elements.recordsList.style.display = state.showRecords ? 'block' : 'none';
-  elements.toggleRecordsBtn.textContent = state.showRecords ? '收起' : '展开';
+  
+  // 设置初始箭头方向
+  const toggleIcon = elements.toggleRecordsBtn.querySelector('.toggle-icon');
+  if (toggleIcon) {
+    if (state.showRecords) {
+      toggleIcon.classList.add('expanded');
+    } else {
+      toggleIcon.classList.remove('expanded');
+    }
+  }
 
   // 事件绑定
   elements.activityNameInput.addEventListener('input', (e) => {

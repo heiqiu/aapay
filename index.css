@@ -778,7 +778,7 @@ body {
 
 .record-btn.clear {
   color: #ffffff;
-  background: #ff4d4f;
+  background: #07c160;
 }
 
 .record-btn.clear:hover {
@@ -794,23 +794,38 @@ body {
 
 .record-btn.toggle {
   color: #ffffff;
-  background: #1890ff;
+  background: #07c160;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 6px;
 }
 
 .record-btn.toggle:hover {
-  background: #40a9ff;
+  background: #73d13d;
   transform: translateY(-1px);
-  box-shadow: 0 4px 12px rgba(24, 144, 255, 0.3);
+  box-shadow: 0 4px 12px rgba(82, 196, 26, 0.3);
 }
 
 .record-btn.toggle:active {
   transform: translateY(0) scale(0.98);
-  background: #1890ff;
+  background: #07c160;
+}
+
+.toggle-icon {
+  width: 12px;
+  height: 12px;
+  transition: transform 0.3s ease;
+  color: currentColor;
+}
+
+.toggle-icon.expanded {
+  transform: rotate(180deg);
 }
 
 .record-btn.merge {
   color: #ffffff;
-  background: #52c41a;
+  background: #07c160;
 }
 
 .record-btn.merge:hover {
