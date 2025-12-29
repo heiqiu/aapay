@@ -434,6 +434,16 @@ body {
   border-bottom: 2px solid rgba(255, 255, 255, 0.2);
   position: relative;
   letter-spacing: 0.3px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.settlement-title .copy-btn {
+  margin-left: 10px;
+  align-self: center;
+  padding: 4px 10px;
+  font-size: 12px;
 }
 
 
@@ -661,21 +671,22 @@ body {
 }
 
 .copy-btn {
-  margin-top: 24px;
   background: #07c160;
   color: white;
   font-size: 13px;
   font-weight: 600;
-  padding: 8px 0;
+  padding: 6px 12px;
   border: none;
   border-radius: 6px;
   box-shadow: 0 4px 12px rgba(7, 193, 96, 0.3), 0 2px 6px rgba(7, 193, 96, 0.2);
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   cursor: pointer;
-  width: 30%;
   letter-spacing: 0.5px;
   position: relative;
   overflow: hidden;
+  align-self: center;
+  min-width: auto;
+  width: auto;
 }
 
 .copy-btn::before {
