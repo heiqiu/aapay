@@ -47,6 +47,14 @@ function hideAddModal() {
 }
 
 /**
+ * 完成添加成员并关闭弹窗
+ */
+function completeAddMembers() {
+  hideAddModal();
+  showToastWrapper('已结束添加成员');
+}
+
+/**
  * 添加成员
  */
 function addMember() {
@@ -69,8 +77,17 @@ function addMember() {
     amount: amount
   });
 
-  hideAddModal();
+  // 不隐藏弹窗，而是清空输入框，让用户可以继续添加下一个成员
+  elements.newMemberName.value = '';
+  elements.newMemberAmount.value = '';
+  // 将焦点设置到姓名输入框，方便用户继续输入
+  elements.newMemberName.focus();
+  
+  // 更新成员列表和结算信息
   updateSettlement();
+  
+  // 显示成功提示
+  showToastWrapper(`已添加成员: ${name}`);
 }
 
 /**
@@ -392,6 +409,7 @@ function init() {
   elements.addMemberBtn.addEventListener('click', showAddMemberModal);
   elements.cancelAddBtn.addEventListener('click', hideAddModal);
   elements.confirmAddBtn.addEventListener('click', addMember);
+  elements.completeAddBtn.addEventListener('click', completeAddMembers);
   elements.cancelEditBtn.addEventListener('click', hideEditModal);
   elements.confirmEditBtn.addEventListener('click', updateMember);
   elements.copyBtn.addEventListener('click', copySettlementInfo);

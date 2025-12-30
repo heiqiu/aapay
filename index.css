@@ -1142,3 +1142,20 @@ body {
   transform: translateY(0) scale(0.98);
   box-shadow: 0 2px 8px rgba(245, 34, 45, 0.25);
 }
+
+/* 完成按钮样式 */
+.complete {
+  background: #52c41a;
+  color: white;
+  box-shadow: 0 4px 12px rgba(82, 196, 26, 0.3), 0 2px 6px rgba(82, 196, 26, 0.2);
+}
+
+.complete:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(82, 196, 26, 0.4), 0 3px 8px rgba(82, 196, 26, 0.3);
+}
+
+.complete:active {
+  transform: translateY(0) scale(0.98);
+  box-shadow: 0 2px 8px rgba(82, 196, 26, 0.25);
+}
