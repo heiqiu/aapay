@@ -104,7 +104,7 @@ export function renderTransferDetails(transferDetails, container) {
  * @param {Function} onDelete - 删除回调
  * @param {Function} onToggleSelection - 切换选择回调
  */
-export function updateRecordsDisplay(records, elements, onRecopy, onDelete, onToggleSelection) {
+export function updateRecordsDisplay(records, elements, onRecopy, onDelete, onToggleSelection, onDownload) {
   if (records.length > 0) {
     elements.copyRecordsSection.style.display = 'block';
   } else {
@@ -140,6 +140,14 @@ export function updateRecordsDisplay(records, elements, onRecopy, onDelete, onTo
     checkbox.addEventListener('change', () => {
       const id = parseInt(checkbox.value);
       onToggleSelection(id, checkbox.checked);
+    });
+  });
+
+  elements.recordsContainer.querySelectorAll('.download').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      const button = e.target.closest('.record-btn');
+      const id = parseInt(button.getAttribute('data-id') || '0');
+      onDownload(id);
     });
   });
 

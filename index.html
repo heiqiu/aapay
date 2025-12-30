@@ -110,6 +110,9 @@
                     <div class="transfer-details" id="transferDetailsModal"></div>
                     <div class="modal-buttons">
                         <button class="modal-btn cancel" id="cancelTransferBtn">取消</button>
+                        <button class="modal-btn download" id="downloadTransferBtn">
+                            下载
+                        </button>
                         <button class="modal-btn confirm" id="copyTransferBtn">复制</button>
                     </div>
                 </div>
@@ -142,6 +145,7 @@
 
 <div class="toast" id="toast"></div>
 
-<script type="module" src="js/app.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+  <script type="module" src="js/app.js"></script>
 </body>
 </html>

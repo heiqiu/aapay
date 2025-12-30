@@ -35,6 +35,7 @@ export function getElements() {
     transferDetailsModal: document.getElementById('transferDetailsModal'),
     closeTransferModal: document.getElementById('closeTransferModal'),
     cancelTransferBtn: document.getElementById('cancelTransferBtn'),
+    downloadTransferBtn: document.getElementById('downloadTransferBtn'),
     copyTransferBtn: document.getElementById('copyTransferBtn'),
     amountInfo: document.getElementById('amountInfo'),
     toast: document.getElementById('toast'),

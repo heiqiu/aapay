@@ -217,7 +217,7 @@ function copySettlementInfo() {
 
   state.copyRecords = [newRecord, ...state.copyRecords];
   saveRecordsToStorage(state.copyRecords);
-  updateRecordsDisplay(state.copyRecords, elements, recopyRecord, deleteRecord, toggleRecordSelection);
+  updateRecordsDisplay(state.copyRecords, elements, recopyRecord, deleteRecord, toggleRecordSelection, downloadRecord);
 
   copyToClipboardWrapper(text);
 }
@@ -249,7 +249,95 @@ function animateAddButton() {
 function deleteRecord(id) {
   state.copyRecords = state.copyRecords.filter(record => record.id !== id);
   saveRecordsToStorage(state.copyRecords);
-  updateRecordsDisplay(state.copyRecords, elements, recopyRecord, deleteRecord, toggleRecordSelection);
+  updateRecordsDisplay(state.copyRecords, elements, recopyRecord, deleteRecord, toggleRecordSelection, downloadRecord);
+}
+
+/**
+ * 下载记录为图片
+ */
+function downloadRecord(id) {
+  const record = state.copyRecords.find(record => record.id === id);
+  if (record) {
+    // 创建一个临时的div元素用于生成图片
+    const tempDiv = document.createElement('div');
+    tempDiv.style.position = 'absolute';
+    tempDiv.style.left = '-9999px';
+    tempDiv.style.width = 'fit-content';
+    tempDiv.style.maxWidth = '600px';
+    tempDiv.style.padding = '20px';
+    tempDiv.style.background = '#252525';
+    tempDiv.style.borderRadius = '12px';
+    tempDiv.style.boxShadow = '0 8px 32px rgba(0, 0, 0, 0.3)';
+    tempDiv.style.fontFamily = 'Arial, sans-serif';
+    tempDiv.style.color = '#ffffff';
+    tempDiv.style.boxSizing = 'border-box';
+    tempDiv.style.overflow = 'hidden';
+    
+    // 构建要显示的内容
+    let contentHTML = '';
+    contentHTML += `<h2 style="text-align: center; color: #07c160; margin: 0 0 15px 0; font-size: 20px;">【${record.activityName}】</h2>`;
+    contentHTML += `<div style="margin-bottom: 15px; padding-bottom: 10px; border-bottom: 2px solid rgba(255, 255, 255, 0.2);">`;
+    contentHTML += `<div style="font-size: 16px; margin-bottom: 5px;">总金额：<span style="color: #07c160; font-weight: bold;">${record.totalAmount}元</span></div>`;
+    contentHTML += `<div style="font-size: 16px;">人均：<span style="color: #07c160; font-weight: bold;">${record.averageAmount}元</span></div>`;
+    contentHTML += `</div>`;
+    
+    contentHTML += `<div style="margin-bottom: 15px; padding-bottom: 10px; border-bottom: 2px solid rgba(255, 255, 255, 0.2);">`;
+    contentHTML += `<h3 style="color: #07c160; margin: 0 0 10px 0; font-size: 18px;">结算明细</h3>`;
+    record.settlementDetails.forEach(item => {
+      if (item.diff !== 0) {
+        const type = item.diff > 0 ? '多付' : '少付';
+        const color = item.diff > 0 ? '#07c160' : '#f5222d';
+        contentHTML += `<div style="display: flex; justify-content: space-between; margin-bottom: 8px; padding: 8px; border-radius: 6px; background: rgba(255, 255, 255, 0.05);">`;
+        contentHTML += `<span style="font-weight: 600;">${item.name}</span>`;
+        contentHTML += `<span style="color: ${color}; font-weight: 600;">${type} ${Math.abs(item.diff)}元</span>`;
+        contentHTML += `</div>`;
+      }
+    });
+    contentHTML += `</div>`;
+    
+    // 计算转账详情
+    const transferDetails = calculateTransferDetails(record.settlementDetails);
+    if (transferDetails.length > 0) {
+      contentHTML += `<div style="margin-bottom: 10px;">`;
+      contentHTML += `<h3 style="color: #07c160; margin: 0 0 10px 0; font-size: 18px;">转账方案</h3>`;
+      transferDetails.forEach(item => {
+        contentHTML += `<div style="display: flex; justify-content: space-between; margin-bottom: 8px; padding: 8px; border-radius: 6px; background: rgba(255, 255, 255, 0.05);">`;
+        contentHTML += `<span>${item.from}</span>`;
+        contentHTML += `<span style="color: #07c160; margin: 0 10px;">→</span>`;
+        contentHTML += `<span>${item.to}</span>`;
+        contentHTML += `<span style="color: #ffffff; font-weight: 700; margin-left: auto; background: linear-gradient(135deg, #f5222d 0%, #d9191e 100%); padding: 4px 8px; border-radius: 6px;">${item.amount}元</span>`;
+        contentHTML += `</div>`;
+      });
+      contentHTML += `</div>`;
+    }
+    
+    contentHTML += `<div style="text-align: center; font-size: 14px; color: rgba(255, 255, 255, 0.7); margin-top: 15px; padding-top: 10px; border-top: 1px solid rgba(255, 255, 255, 0.2);">生成时间: ${record.time}</div>`;
+    
+    tempDiv.innerHTML = contentHTML;
+    document.body.appendChild(tempDiv);
+    
+    // 使用html2canvas将div转换为图片
+    html2canvas(tempDiv, {
+      backgroundColor: '#0b0e14',
+      scale: 2, // 提高清晰度
+      useCORS: true,
+      allowTaint: true,
+      width: tempDiv.scrollWidth,
+      height: tempDiv.scrollHeight
+    }).then(canvas => {
+      // 将canvas转换为图片并下载
+      const link = document.createElement('a');
+      link.download = `${record.activityName}_转账方案_${Date.now()}.png`;
+      link.href = canvas.toDataURL('image/png');
+      link.click();
+      document.body.removeChild(tempDiv);
+      showToastWrapper('图片已下载');
+    }).catch(error => {
+      console.error('生成图片失败:', error);
+      document.body.removeChild(tempDiv);
+      showToastWrapper('生成图片失败');
+    });
+  }
 }
 
 /**
@@ -306,7 +394,7 @@ function clearRecords() {
     if (confirmed) {
       state.copyRecords = [];
       saveRecordsToStorage(state.copyRecords);
-      updateRecordsDisplay(state.copyRecords, elements, recopyRecord, deleteRecord, toggleRecordSelection);
+      updateRecordsDisplay(state.copyRecords, elements, recopyRecord, deleteRecord, toggleRecordSelection, downloadRecord);
       showToastWrapper('已清空记录');
     }
   });
@@ -367,7 +455,7 @@ function mergeSelectedRecords() {
 
   state.copyRecords = [newRecord, ...state.copyRecords];
   saveRecordsToStorage(state.copyRecords);
-  updateRecordsDisplay(state.copyRecords, elements, recopyRecord, deleteRecord, toggleRecordSelection);
+  updateRecordsDisplay(state.copyRecords, elements, recopyRecord, deleteRecord, toggleRecordSelection, downloadRecord);
   copyToClipboardWrapper(mergedContent);
 }
 
@@ -377,7 +465,7 @@ function mergeSelectedRecords() {
 function init() {
   // 从本地存储加载记录
   state.copyRecords = loadRecordsFromStorage();
-  updateRecordsDisplay(state.copyRecords, elements, recopyRecord, deleteRecord, toggleRecordSelection);
+  updateRecordsDisplay(state.copyRecords, elements, recopyRecord, deleteRecord, toggleRecordSelection, downloadRecord);
   
   // 设置记录列表的初始显示状态
   elements.recordsList.style.display = state.showRecords ? 'block' : 'none';
@@ -453,6 +541,92 @@ function init() {
   
   elements.cancelTransferBtn.addEventListener('click', () => {
     elements.transferModal.style.display = 'none';
+  });
+  
+  elements.downloadTransferBtn.addEventListener('click', () => {
+    const record = state.copyRecords.find(r => r.id === state.currentRecordId);
+    if (record) {
+      // 创建一个临时的div元素用于生成图片
+      const tempDiv = document.createElement('div');
+      tempDiv.style.position = 'absolute';
+      tempDiv.style.left = '-9999px';
+      tempDiv.style.width = 'fit-content';
+      tempDiv.style.maxWidth = '600px';
+      tempDiv.style.padding = '20px';
+      tempDiv.style.background = '#252525';
+      tempDiv.style.borderRadius = '12px';
+      tempDiv.style.boxShadow = '0 8px 32px rgba(0, 0, 0, 0.3)';
+      tempDiv.style.fontFamily = 'Arial, sans-serif';
+      tempDiv.style.color = '#ffffff';
+      tempDiv.style.boxSizing = 'border-box';
+      tempDiv.style.overflow = 'hidden';
+      
+      // 构建要显示的内容
+      let contentHTML = '';
+      contentHTML += `<h2 style="text-align: center; color: #07c160; margin: 0 0 15px 0; font-size: 20px;">【${record.activityName}】</h2>`;
+      contentHTML += `<div style="margin-bottom: 15px; padding-bottom: 10px; border-bottom: 2px solid rgba(255, 255, 255, 0.2);">`;
+      contentHTML += `<div style="font-size: 16px; margin-bottom: 5px;">总金额：<span style="color: #07c160; font-weight: bold;">${record.totalAmount}元</span></div>`;
+      contentHTML += `<div style="font-size: 16px;">人均：<span style="color: #07c160; font-weight: bold;">${record.averageAmount}元</span></div>`;
+      contentHTML += `</div>`;
+      
+      contentHTML += `<div style="margin-bottom: 15px; padding-bottom: 10px; border-bottom: 2px solid rgba(255, 255, 255, 0.2);">`;
+      contentHTML += `<h3 style="color: #07c160; margin: 0 0 10px 0; font-size: 18px;">结算明细</h3>`;
+      record.settlementDetails.forEach(item => {
+        if (item.diff !== 0) {
+          const type = item.diff > 0 ? '多付' : '少付';
+          const color = item.diff > 0 ? '#07c160' : '#f5222d';
+          contentHTML += `<div style="display: flex; justify-content: space-between; margin-bottom: 8px; padding: 8px; border-radius: 6px; background: rgba(255, 255, 255, 0.05);">`;
+          contentHTML += `<span style="font-weight: 600;">${item.name}</span>`;
+          contentHTML += `<span style="color: ${color}; font-weight: 600;">${type} ${Math.abs(item.diff)}元</span>`;
+          contentHTML += `</div>`;
+        }
+      });
+      contentHTML += `</div>`;
+      
+      // 计算转账详情
+      const transferDetails = calculateTransferDetails(record.settlementDetails);
+      if (transferDetails.length > 0) {
+        contentHTML += `<div style="margin-bottom: 10px;">`;
+        contentHTML += `<h3 style="color: #07c160; margin: 0 0 10px 0; font-size: 18px;">转账方案</h3>`;
+        transferDetails.forEach(item => {
+          contentHTML += `<div style="display: flex; justify-content: space-between; margin-bottom: 8px; padding: 8px; border-radius: 6px; background: rgba(255, 255, 255, 0.05);">`;
+          contentHTML += `<span>${item.from}</span>`;
+          contentHTML += `<span style="color: #07c160; margin: 0 10px;">→</span>`;
+          contentHTML += `<span>${item.to}</span>`;
+          contentHTML += `<span style="color: #ffffff; font-weight: 700; margin-left: auto; background: linear-gradient(135deg, #f5222d 0%, #d9191e 100%); padding: 4px 8px; border-radius: 6px;">${item.amount}元</span>`;
+          contentHTML += `</div>`;
+        });
+        contentHTML += `</div>`;
+      }
+      
+      contentHTML += `<div style="text-align: center; font-size: 14px; color: rgba(255, 255, 255, 0.7); margin-top: 15px; padding-top: 10px; border-top: 1px solid rgba(255, 255, 255, 0.2);">生成时间: ${record.time}</div>`;
+      
+      tempDiv.innerHTML = contentHTML;
+      document.body.appendChild(tempDiv);
+      
+      // 使用html2canvas将div转换为图片
+      html2canvas(tempDiv, {
+        backgroundColor: '#0b0e14',
+        scale: 2, // 提高清晰度
+        useCORS: true,
+        allowTaint: true,
+        width: tempDiv.scrollWidth,
+        height: tempDiv.scrollHeight
+      }).then(canvas => {
+        // 将canvas转换为图片并下载
+        const link = document.createElement('a');
+        link.download = `${record.activityName}_转账方案_${Date.now()}.png`;
+        link.href = canvas.toDataURL('image/png');
+        link.click();
+        document.body.removeChild(tempDiv);
+        showToastWrapper('图片已下载');
+        elements.transferModal.style.display = 'none';
+      }).catch(error => {
+        console.error('生成图片失败:', error);
+        document.body.removeChild(tempDiv);
+        showToastWrapper('生成图片失败');
+      });
+    }
   });
   
   elements.copyTransferBtn.addEventListener('click', () => {

@@ -695,6 +695,22 @@ body {
   box-shadow: 0 2px 8px rgba(7, 193, 96, 0.25);
 }
 
+.download {
+  background: #07c160;
+  color: white;
+  box-shadow: 0 4px 12px rgba(7, 193, 96, 0.3), 0 2px 6px rgba(7, 193, 96, 0.2);
+}
+
+.download:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(7, 193, 96, 0.4), 0 3px 8px rgba(7, 193, 96, 0.3);
+}
+
+.download:active {
+  transform: translateY(0) scale(0.98);
+  box-shadow: 0 2px 8px rgba(7, 193, 96, 0.25);
+}
+
 .transfer-item {
   display: flex;
   align-items: center;
