@@ -949,20 +949,27 @@ body {
   position: fixed;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%);
-  background: rgba(0, 0, 0, 0.8);
-  color: white;
-  padding: 12px 24px;
-  border-radius: 6px;
+  transform: translate(-50%, -50%) translateY(20px);
+  background: linear-gradient(135deg, #252525 0%, #333333 100%);
+  color: #07c160;
+  padding: 16px 28px;
+  border-radius: 12px;
   z-index: 2000;
-  font-size: 14px;
+  font-size: 15px;
+  font-weight: 500;
   pointer-events: none;
   opacity: 0;
-  transition: opacity 0.3s;
+  transition: all 0.4s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.4), 0 6px 16px rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  min-width: 200px;
+  text-align: center;
+  backdrop-filter: blur(10px);
 }
 
 .toast.show {
   opacity: 1;
+  transform: translate(-50%, -50%) translateY(0);
 }
 
 /* 页尾样式 */

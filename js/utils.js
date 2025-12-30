@@ -10,9 +10,20 @@
 export function showToast(message, toastElement) {
   toastElement.textContent = message;
   toastElement.classList.add('show');
+  
+  // 清除可能存在的过渡事件监听器
+  toastElement.removeEventListener('transitionend', onToastTransitionEnd);
+  
   setTimeout(() => {
     toastElement.classList.remove('show');
   }, 2000);
+}
+
+// 过渡结束事件处理函数
+function onToastTransitionEnd(event) {
+  if (event.propertyName === 'opacity' && event.target.classList.contains('toast') && !event.target.classList.contains('show')) {
+    event.target.textContent = '';
+  }
 }
 
 /**
