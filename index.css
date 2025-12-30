@@ -292,14 +292,14 @@ body {
   border: none;
   padding: 0;
   min-width: auto;
-  width: 24px;
-  height: 24px;
+  width: 32px;
+  height: 32px;
   display: flex;
   align-items: center;
   justify-content: center;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   cursor: pointer;
-  border-radius: 4px;
+  border-radius: 6px;
 }
 
 .edit-btn:hover, .delete-btn:hover {
@@ -317,11 +317,11 @@ body {
   margin: 0;
   background: #07c160;
   color: white;
-  font-size: 15px;
+  font-size: 16px;
   font-weight: 600;
-  padding: 14px 24px;
+  padding: 16px 28px;
   flex-shrink: 0;
-  border-radius: 12px;
+  border-radius: 14px;
   box-shadow: 0 4px 12px rgba(7, 193, 96, 0.3), 0 2px 6px rgba(7, 193, 96, 0.2);
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   border: none;
@@ -415,8 +415,8 @@ body {
 .amount-info .copy-btn {
   margin-left: 10px;
   align-self: center;
-  padding: 4px 10px;
-  font-size: 12px;
+  padding: 8px 20px;
+  font-size: 14px;
 }
 
 
@@ -607,9 +607,9 @@ body {
 
 .modal-btn {
   flex: 1;
-  padding: 14px 0;
-  border-radius: 10px;
-  font-size: 15px;
+  padding: 16px 0;
+  border-radius: 12px;
+  font-size: 16px;
   font-weight: 600;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   border: none;
@@ -694,11 +694,11 @@ body {
 .copy-btn {
   background: #07c160;
   color: white;
-  font-size: 13px;
+  font-size: 15px;
   font-weight: 600;
-  padding: 6px 12px;
+  padding: 12px 20px;
   border: none;
-  border-radius: 6px;
+  border-radius: 10px;
   box-shadow: 0 4px 12px rgba(7, 193, 96, 0.3), 0 2px 6px rgba(7, 193, 96, 0.2);
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   cursor: pointer;
@@ -765,9 +765,9 @@ body {
 }
 
 .record-btn {
-  font-size: 13px;
-  padding: 6px 12px;
-  border-radius: 6px;
+  font-size: 14px;
+  padding: 10px 16px;
+  border-radius: 8px;
   transition: all 0.3s;
   border: none;
   cursor: pointer;
@@ -798,7 +798,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 6px;
+  padding: 10px;
 }
 
 .record-btn.toggle:hover {
