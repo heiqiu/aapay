@@ -118,7 +118,8 @@ export function updateRecordsDisplay(records, elements, onRecopy, onDelete, onTo
         <div class="record-info">
           <div class="record-title">
             <span class="record-name">${record.activityName}</span>
-            <span class="record-amount">${record.totalAmount}元</span>
+            总共<span class="record-name">${record.totalAmount}</span>元，
+            人均<span class="record-name">${record.averageAmount}</span>元
           </div>
           <span class="record-time">${record.time}</span>
         </div>

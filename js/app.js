@@ -211,7 +211,8 @@ function copySettlementInfo() {
     subContent: subText,
     settlementDetails: settlementDetails,
     activityName: activityName || '未命名',
-    totalAmount: totalAmount
+    totalAmount: totalAmount,
+    averageAmount: averageAmount
   };
 
   state.copyRecords = [newRecord, ...state.copyRecords];
