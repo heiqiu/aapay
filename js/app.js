@@ -36,6 +36,9 @@ function showAddMemberModal() {
   elements.newMemberName.value = '';
   elements.newMemberAmount.value = '';
   elements.addModal.style.display = 'flex';
+  
+  // 将焦点设置到姓名输入框
+  elements.newMemberName.focus();
 }
 
 /**
@@ -402,6 +405,22 @@ function init() {
   elements.cancelAddBtn.addEventListener('click', hideAddModal);
   elements.confirmAddBtn.addEventListener('click', addMember);
   elements.cancelEditBtn.addEventListener('click', hideEditModal);
+  
+  // 添加键盘事件监听，实现回车切换焦点
+  elements.newMemberName.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') {
+      // 按回车时将焦点切换到金额输入框
+      elements.newMemberAmount.focus();
+    }
+  });
+  
+  elements.newMemberAmount.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') {
+      // 按回车时触发添加成员
+      addMember();
+    }
+  });
+  
   elements.confirmEditBtn.addEventListener('click', updateMember);
   elements.copyBtn.addEventListener('click', copySettlementInfo);
   elements.toggleRecordsBtn.addEventListener('click', toggleRecords);
