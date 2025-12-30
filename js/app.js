@@ -47,14 +47,6 @@ function hideAddModal() {
 }
 
 /**
- * 完成添加成员并关闭弹窗
- */
-function completeAddMembers() {
-  hideAddModal();
-  showToastWrapper('已结束添加成员');
-}
-
-/**
  * 添加成员
  */
 function addMember() {
