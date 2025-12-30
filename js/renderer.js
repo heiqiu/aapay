@@ -29,6 +29,7 @@ export function renderMembers(members, settlementDetails, container, onEdit, onD
     return `
     <div class="member-item">
       <div class="member-info">
+        <img src="icons/member.svg" class="icon">
         <span class="member-name">${member.name}</span>
         <span class="member-amount">已付${member.amount}元</span>
         ${diffDisplay}
