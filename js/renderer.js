@@ -88,10 +88,10 @@ export function renderSettlementDetails(settlementDetails, container) {
 export function renderTransferDetails(transferDetails, container) {
   container.innerHTML = transferDetails.map(item => `
     <div class="transfer-item">
-      <span>${item.from}</span>
-      <span class="transfer-arrow">→</span>
-      <span>${item.to}</span>
-      <span class="transfer-amount">${item.amount}元</span>
+      ${item.from}
+      <span class="transfer-arrow">转</span>
+      ${item.to}
+      <span class="transfer-arrow">${item.amount}</span>元 
     </div>
   `).join('');
 }
