@@ -1,12 +1,7 @@
 {
-  "$schema": "https://esa-console.oss-accelerate.aliyuncs.com/schema.json",
   "assets": {
     "dir": ".",
     "index": ["index.html"],
     "publicPath": "/"
-  },
-  "function": {
-    "dir": "",
-    "entry": ""
   }
 }
