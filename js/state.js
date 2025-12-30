@@ -4,25 +4,26 @@
 
 /**
  * 创建应用状态
- * @returns {Object} 状态对象
+ * @returns {Object} 应用状态对象
  */
 export function createState() {
   return {
-    activityName: '',
     members: [],
-    showModal: false,
-    newMemberName: '',
-    newMemberAmount: '',
+    activityName: '',
     totalAmount: 0,
     averageAmount: 0,
     settlementDetails: [],
     transferDetails: [],
-    showEditModal: false,
-    editMemberName: '',
-    editMemberAmount: '',
-    editingIndex: -1,
     copyRecords: [],
+    currentRecordId: null,
+    // 默认展开记录列表
     showRecords: true,
+    showModal: false,
+    showEditModal: false,
+    editingIndex: -1,
+    newMemberName: '',
+    newMemberAmount: '',
+    editMemberName: '',
+    editMemberAmount: ''
   };
 }
-
