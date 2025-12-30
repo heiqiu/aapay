@@ -400,6 +400,14 @@ function init() {
       animateAddButton();
     }
   });
+  
+  // 添加回车事件监听，当在活动名称输入框按回车时触发添加成员按钮
+  elements.activityNameInput.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') {
+      // 触发添加成员按钮的点击事件
+      elements.addMemberBtn.click();
+    }
+  });
 
   elements.addMemberBtn.addEventListener('click', showAddMemberModal);
   elements.cancelAddBtn.addEventListener('click', hideAddModal);
@@ -411,6 +419,9 @@ function init() {
     if (e.key === 'Enter') {
       // 按回车时将焦点切换到金额输入框
       elements.newMemberAmount.focus();
+    } else if (e.key === 'Escape') {
+      // 按ESC时触发取消操作
+      hideAddModal();
     }
   });
   
@@ -418,6 +429,9 @@ function init() {
     if (e.key === 'Enter') {
       // 按回车时触发添加成员
       addMember();
+    } else if (e.key === 'Escape') {
+      // 按ESC时触发取消操作
+      hideAddModal();
     }
   });
   
@@ -480,6 +494,9 @@ function init() {
 
   // 初始渲染
   updateSettlement();
+  
+  // 设置活动名称输入框的焦点
+  elements.activityNameInput.focus();
 }
 
 // 当DOM加载完成后初始化
