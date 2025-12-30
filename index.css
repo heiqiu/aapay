@@ -315,14 +315,14 @@ body {
 
 .add-btn {
   margin: 0;
-  background: #07c160;
-  color: white;
+  background: transparent;
+  color: #07c160;
   font-size: 16px;
   font-weight: 600;
   padding: 16px 28px;
   flex-shrink: 0;
   border-radius: 14px;
-  box-shadow: 0 4px 12px rgba(7, 193, 96, 0.3), 0 2px 6px rgba(7, 193, 96, 0.2);
+  border: 2px solid #07c160;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   border: none;
   cursor: pointer;
@@ -340,7 +340,7 @@ body {
   left: -100%;
   width: 100%;
   height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  background: linear-gradient(90deg, transparent, rgba(7, 193, 96, 0.3), transparent);
   transition: left 0.5s;
 }
 
