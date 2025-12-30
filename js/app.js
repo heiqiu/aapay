@@ -23,6 +23,13 @@ const copyToClipboardWrapper = (text) => copyToClipboard(text, showToastWrapper)
  * 显示添加成员弹窗
  */
 function showAddMemberModal() {
+  // 检查活动名称是否已填写
+  const activityName = elements.activityNameInput.value.trim();
+  if (!activityName) {
+    showToastWrapper('请先填写活动名称');
+    return;
+  }
+  
   state.showModal = true;
   state.newMemberName = '';
   state.newMemberAmount = '';
