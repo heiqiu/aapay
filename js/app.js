@@ -391,6 +391,10 @@ function init() {
     }
   }
 
+  // 清空活动名称输入框
+  elements.activityNameInput.value = '';
+  state.activityName = '';
+
   // 事件绑定
   elements.activityNameInput.addEventListener('input', (e) => {
     state.activityName = e.target.value;
@@ -436,10 +440,6 @@ function init() {
   });
   
   elements.confirmEditBtn.addEventListener('click', updateMember);
-  elements.copyBtn.addEventListener('click', copySettlementInfo);
-  elements.toggleRecordsBtn.addEventListener('click', toggleRecords);
-  elements.clearRecordsBtn.addEventListener('click', clearRecords);
-  elements.mergeBtn.addEventListener('click', mergeSelectedRecords);
   
   // 转账记录弹窗事件
   elements.closeTransferModal.addEventListener('click', () => {
