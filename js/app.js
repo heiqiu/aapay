@@ -390,6 +390,15 @@ function init() {
     }
   });
   
+  // 确认对话框事件
+  elements.confirmCancelBtn.addEventListener('click', () => {
+    elements.confirmModal.style.display = 'none';
+  });
+  
+  elements.confirmConfirmBtn.addEventListener('click', () => {
+    elements.confirmModal.style.display = 'none';
+  });
+  
   // 点击模态框外部关闭
   elements.addModal.addEventListener('click', (e) => {
     if (e.target === elements.addModal) {
@@ -406,6 +415,12 @@ function init() {
   elements.transferModal.addEventListener('click', (e) => {
     if (e.target === elements.transferModal) {
       elements.transferModal.style.display = 'none';
+    }
+  });
+  
+  elements.confirmModal.addEventListener('click', (e) => {
+    if (e.target === elements.confirmModal) {
+      elements.confirmModal.style.display = 'none';
     }
   });
 

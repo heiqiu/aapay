@@ -73,8 +73,57 @@ function fallbackCopy(text, showToastCallback) {
  */
 export function confirmDialog(message) {
   return new Promise((resolve) => {
-    const result = window.confirm(message);
-    resolve(result);
+    // 获取确认对话框元素
+    const modal = document.getElementById('confirmModal');
+    const messageElement = document.getElementById('confirmMessage');
+    const cancelBtn = document.getElementById('confirmCancelBtn');
+    const confirmBtn = document.getElementById('confirmConfirmBtn');
+    
+    // 设置消息内容
+    messageElement.textContent = message;
+    
+    // 显示对话框
+    modal.style.display = 'flex';
+    
+    // 定义事件处理函数
+    const handleConfirm = () => {
+      closeModal();
+      resolve(true);
+    };
+    
+    const handleCancel = () => {
+      closeModal();
+      resolve(false);
+    };
+    
+    const closeModal = () => {
+      modal.style.display = 'none';
+      // 移除事件监听器
+      cancelBtn.removeEventListener('click', handleCancel);
+      confirmBtn.removeEventListener('click', handleConfirm);
+      // 移除ESC键监听
+      document.removeEventListener('keydown', handleKeyDown);
+    };
+    
+    const handleKeyDown = (event) => {
+      if (event.key === 'Escape') {
+        handleCancel();
+      }
+    };
+    
+    // 添加事件监听器
+    cancelBtn.addEventListener('click', handleCancel);
+    confirmBtn.addEventListener('click', handleConfirm);
+    
+    // ESC键关闭对话框
+    document.addEventListener('keydown', handleKeyDown);
+    
+    // 点击遮罩层关闭对话框
+    modal.addEventListener('click', (e) => {
+      if (e.target === modal) {
+        handleCancel();
+      }
+    });
   });
 }
 

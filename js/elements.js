@@ -38,5 +38,8 @@ export function getElements() {
     copyTransferBtn: document.getElementById('copyTransferBtn'),
     amountInfo: document.getElementById('amountInfo'),
     toast: document.getElementById('toast'),
+    confirmModal: document.getElementById('confirmModal'),
+    confirmCancelBtn: document.getElementById('confirmCancelBtn'),
+    confirmConfirmBtn: document.getElementById('confirmConfirmBtn'),
   };
 }
