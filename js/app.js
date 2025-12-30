@@ -409,7 +409,6 @@ function init() {
   elements.addMemberBtn.addEventListener('click', showAddMemberModal);
   elements.cancelAddBtn.addEventListener('click', hideAddModal);
   elements.confirmAddBtn.addEventListener('click', addMember);
-  elements.completeAddBtn.addEventListener('click', completeAddMembers);
   elements.cancelEditBtn.addEventListener('click', hideEditModal);
   elements.confirmEditBtn.addEventListener('click', updateMember);
   elements.copyBtn.addEventListener('click', copySettlementInfo);
