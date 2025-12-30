@@ -81,8 +81,7 @@ function addMember() {
   // 更新成员列表和结算信息
   updateSettlement();
   
-  // 显示成功提示
-  showToastWrapper(`已添加成员: ${name}`);
+  // 移除添加成员的提醒消息
 }
 
 /**
@@ -171,7 +170,7 @@ function updateSettlement() {
  * 复制文本到剪贴板
  */
 function copySettlementInfo() {
-  const { activityName, totalAmount, averageAmount, settlementDetails, transferDetails } = state;
+  const { activityName, totalAmount, averageAmount, settlementDetails, transferDetails, members } = state;
   
   let text = '';
   let subText = '';
@@ -196,7 +195,7 @@ function copySettlementInfo() {
 
   transferDetailsText += `\n【转账方案】\n`;
   transferDetails.forEach(item => {
-    transferDetailsText += `${item.from} → ${item.to}：${item.amount}元\n`;
+    transferDetailsText += `${item.from} 转 ${item.to}：${item.amount}元\n`;
   });
 
   text += transferDetailsText;
@@ -210,6 +209,7 @@ function copySettlementInfo() {
     content: text,
     subContent: subText,
     settlementDetails: settlementDetails,
+    members: members, // 添加成员列表信息
     activityName: activityName || '未命名',
     totalAmount: totalAmount,
     averageAmount: averageAmount
@@ -219,7 +219,10 @@ function copySettlementInfo() {
   saveRecordsToStorage(state.copyRecords);
   updateRecordsDisplay(state.copyRecords, elements, recopyRecord, deleteRecord, toggleRecordSelection, downloadRecord);
 
-  copyToClipboardWrapper(text);
+  // 提醒用户点击最新记录的复制按钮 - 使用按钮闪动而不是文本提醒
+  setTimeout(() => {
+    animateLatestRecordCopyButton();
+  }, 100);
 }
 
 /**
@@ -241,6 +244,55 @@ function animateAddButton() {
   setTimeout(() => {
     button.classList.remove('pulse-animation');
   }, 2000);
+}
+
+/**
+ * 为复制按钮添加提示动画
+ */
+function animateCopyButton() {
+  const button = elements.copyBtn;
+  
+  // 移除可能存在的动画类
+  button.classList.remove('pulse-animation');
+  
+  // 强制重排以确保类被移除
+  void button.offsetWidth;
+  
+  // 添加脉冲动画类
+  button.classList.add('pulse-animation');
+  
+  // 一段时间后移除动画类
+  setTimeout(() => {
+    button.classList.remove('pulse-animation');
+  }, 2000);
+}
+
+/**
+ * 为最新记录的复制按钮添加提示动画
+ */
+function animateLatestRecordCopyButton() {
+  // 由于记录是更新后才渲染的，我们需要确保DOM已经更新
+  setTimeout(() => {
+    // 获取最新记录的复制按钮（第一个recopy按钮，因为记录是添加到数组开头的）
+    const recopyButtons = document.querySelectorAll('.record-btn.recopy');
+    if (recopyButtons.length > 0) {
+      const latestButton = recopyButtons[0]; // 第一个是最新添加的
+      
+      // 移除可能存在的动画类
+      latestButton.classList.remove('pulse-animation');
+      
+      // 强制重排以确保类被移除
+      void latestButton.offsetWidth;
+      
+      // 添加脉冲动画类
+      latestButton.classList.add('pulse-animation');
+      
+      // 一段时间后移除动画类
+      setTimeout(() => {
+        latestButton.classList.remove('pulse-animation');
+      }, 2000);
+    }
+  }, 50); // 短暂延迟确保DOM已更新
 }
 
 /**
@@ -287,9 +339,9 @@ function downloadRecord(id) {
       if (item.diff !== 0) {
         const type = item.diff > 0 ? '多付' : '少付';
         const color = item.diff > 0 ? '#07c160' : '#f5222d';
-        contentHTML += `<div style="display: flex; justify-content: space-between; margin-bottom: 8px; padding: 8px; border-radius: 6px; background: rgba(255, 255, 255, 0.05);">`;
-        contentHTML += `<span style="font-weight: 600;">${item.name}</span>`;
-        contentHTML += `<span style="color: ${color}; font-weight: 600;">${type} ${Math.abs(item.diff)}元</span>`;
+        contentHTML += `<div style="display: flex; justify-content: space-between; align-items: center; margin: 6px 0; padding: 14px 12px; border-radius: 8px; background: transparent; border-bottom: 1px solid rgba(255, 255, 255, 0.2); transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);">`;
+        contentHTML += `<span style="font-weight: 600; flex: 1; padding-right: 12px; font-size: 15px; color: #07c160; letter-spacing: 0.2px;">${item.name}</span>`;
+        contentHTML += `<span style="min-width: 90px; text-align: right; font-weight: 600; padding: 4px 10px; border-radius: 6px; color: ${color}; font-weight: 700; border: 1px solid ${color === '#07c160' ? 'rgba(7, 193, 96, 0.3)' : 'rgba(245, 34, 45, 0.3)'}; background: ${color === '#07c160' ? 'rgba(7, 193, 96, 0.1)' : 'rgba(245, 34, 45, 0.1)'};">${type} ${Math.abs(item.diff)}元</span>`;
         contentHTML += `</div>`;
       }
     });
@@ -301,11 +353,11 @@ function downloadRecord(id) {
       contentHTML += `<div style="margin-bottom: 10px;">`;
       contentHTML += `<h3 style="color: #07c160; margin: 0 0 10px 0; font-size: 18px;">转账方案</h3>`;
       transferDetails.forEach(item => {
-        contentHTML += `<div style="display: flex; justify-content: space-between; margin-bottom: 8px; padding: 8px; border-radius: 6px; background: rgba(255, 255, 255, 0.05);">`;
-        contentHTML += `<span>${item.from}</span>`;
-        contentHTML += `<span style="color: #07c160; margin: 0 10px;">→</span>`;
-        contentHTML += `<span>${item.to}</span>`;
-        contentHTML += `<span style="color: #ffffff; font-weight: 700; margin-left: auto; background: linear-gradient(135deg, #f5222d 0%, #d9191e 100%); padding: 4px 8px; border-radius: 6px;">${item.amount}元</span>`;
+        contentHTML += `<div style="display: flex; justify-content: space-between; align-items: center; margin: 6px 0; padding: 14px 12px; border-radius: 8px; background: transparent; border-bottom: 1px solid rgba(255, 255, 255, 0.2); transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);">`;
+        contentHTML += `<span style="color: #ffffff;">${item.from}</span>`;
+        contentHTML += `<span style="color: #07c160; margin: 0 12px; font-weight: 700; font-size: 18px; opacity: 0.9; text-shadow: 0 1px 2px rgba(7, 193, 96, 0.2);">转</span>`;
+        contentHTML += `<span style="color: #ffffff;">${item.to}</span>`;
+        contentHTML += `<span style="color: #ffffff; font-weight: 700; font-size: 16px; margin-left: auto;">${item.amount}元</span>`;
         contentHTML += `</div>`;
       });
       contentHTML += `</div>`;
@@ -439,8 +491,19 @@ function mergeSelectedRecords() {
 
   mergedContent += `\n【合并转账方案】\n`;
   mergedTransferDetails.forEach(item => {
-    mergedContent += `${item.from} → ${item.to}：${item.amount}元\n`;
+    mergedContent += `${item.from} 转 ${item.to}：${item.amount}元\n`;
   });
+
+  // 合并成员列表 - 取所有记录中的成员，去重
+  const allMembers = new Set();
+  selectedRecords.forEach(record => {
+    if (record.members) {
+      record.members.forEach(member => {
+        allMembers.add(JSON.stringify(member));
+      });
+    }
+  });
+  const mergedMembers = Array.from(allMembers).map(str => JSON.parse(str));
 
   const newRecord = {
     id: Date.now(),
@@ -448,6 +511,7 @@ function mergeSelectedRecords() {
     content: mergedContent,
     subContent: '',
     settlementDetails: mergedSettlementDetails,
+    members: mergedMembers, // 添加合并的成员列表
     activityName: '[合并]' + mergedActivityName,
     totalAmount: mergedTotalAmount,
     selected: false
@@ -569,15 +633,28 @@ function init() {
       contentHTML += `<div style="font-size: 16px;">人均：<span style="color: #07c160; font-weight: bold;">${record.averageAmount}元</span></div>`;
       contentHTML += `</div>`;
       
+      // 添加成员列表部分
+      if (record.members && record.members.length > 0) {
+        contentHTML += `<div style="margin-bottom: 15px; padding-bottom: 10px; border-bottom: 2px solid rgba(255, 255, 255, 0.2);">`;
+        contentHTML += `<h3 style="color: #07c160; margin: 0 0 10px 0; font-size: 18px;">成员列表</h3>`;
+        record.members.forEach(member => {
+          contentHTML += `<div style="display: flex; justify-content: space-between; align-items: center; margin: 6px 0; padding: 14px 12px; border-radius: 8px; background: transparent; border-bottom: 1px solid rgba(255, 255, 255, 0.2); transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);">`;
+          contentHTML += `<span style="font-weight: 600; flex: 1; padding-right: 12px; font-size: 15px; color: #07c160; letter-spacing: 0.2px;">${member.name}</span>`;
+          contentHTML += `<span style="min-width: 90px; text-align: right; font-weight: 600; padding: 4px 10px; border-radius: 6px; color: #07c160; font-weight: 700; border: 1px solid rgba(7, 193, 96, 0.3); background: rgba(7, 193, 96, 0.1);">已付 ${member.amount}元</span>`;
+          contentHTML += `</div>`;
+        });
+        contentHTML += `</div>`;
+      }
+      
       contentHTML += `<div style="margin-bottom: 15px; padding-bottom: 10px; border-bottom: 2px solid rgba(255, 255, 255, 0.2);">`;
       contentHTML += `<h3 style="color: #07c160; margin: 0 0 10px 0; font-size: 18px;">结算明细</h3>`;
       record.settlementDetails.forEach(item => {
         if (item.diff !== 0) {
           const type = item.diff > 0 ? '多付' : '少付';
           const color = item.diff > 0 ? '#07c160' : '#f5222d';
-          contentHTML += `<div style="display: flex; justify-content: space-between; margin-bottom: 8px; padding: 8px; border-radius: 6px; background: rgba(255, 255, 255, 0.05);">`;
-          contentHTML += `<span style="font-weight: 600;">${item.name}</span>`;
-          contentHTML += `<span style="color: ${color}; font-weight: 600;">${type} ${Math.abs(item.diff)}元</span>`;
+          contentHTML += `<div style="display: flex; justify-content: space-between; align-items: center; margin: 6px 0; padding: 14px 12px; border-radius: 8px; background: transparent; border-bottom: 1px solid rgba(255, 255, 255, 0.2); transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);">`;
+          contentHTML += `<span style="font-weight: 600; flex: 1; padding-right: 12px; font-size: 15px; color: #07c160; letter-spacing: 0.2px;">${item.name}</span>`;
+          contentHTML += `<span style="min-width: 90px; text-align: right; font-weight: 600; padding: 4px 10px; border-radius: 6px; color: ${color}; font-weight: 700; border: 1px solid ${color === '#07c160' ? 'rgba(7, 193, 96, 0.3)' : 'rgba(245, 34, 45, 0.3)'}; background: ${color === '#07c160' ? 'rgba(7, 193, 96, 0.1)' : 'rgba(245, 34, 45, 0.1)'};">${type} ${Math.abs(item.diff)}元</span>`;
           contentHTML += `</div>`;
         }
       });
@@ -589,11 +666,11 @@ function init() {
         contentHTML += `<div style="margin-bottom: 10px;">`;
         contentHTML += `<h3 style="color: #07c160; margin: 0 0 10px 0; font-size: 18px;">转账方案</h3>`;
         transferDetails.forEach(item => {
-          contentHTML += `<div style="display: flex; justify-content: space-between; margin-bottom: 8px; padding: 8px; border-radius: 6px; background: rgba(255, 255, 255, 0.05);">`;
-          contentHTML += `<span>${item.from}</span>`;
-          contentHTML += `<span style="color: #07c160; margin: 0 10px;">→</span>`;
-          contentHTML += `<span>${item.to}</span>`;
-          contentHTML += `<span style="color: #ffffff; font-weight: 700; margin-left: auto; background: linear-gradient(135deg, #f5222d 0%, #d9191e 100%); padding: 4px 8px; border-radius: 6px;">${item.amount}元</span>`;
+          contentHTML += `<div style="display: flex; justify-content: space-between; align-items: center; margin: 6px 0; padding: 14px 12px; border-radius: 8px; background: transparent; border-bottom: 1px solid rgba(255, 255, 255, 0.2); transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);">`;
+          contentHTML += `<span style="color: #ffffff;">${item.from}</span>`;
+          contentHTML += `<span style="color: #07c160; margin: 0 12px; font-weight: 700; font-size: 18px; opacity: 0.9; text-shadow: 0 1px 2px rgba(7, 193, 96, 0.2);">转</span>`;
+          contentHTML += `<span style="color: #ffffff;">${item.to}</span>`;
+          contentHTML += `<span style="color: #ffffff; font-weight: 700; font-size: 16px; margin-left: auto;">${item.amount}元</span>`;
           contentHTML += `</div>`;
         });
         contentHTML += `</div>`;
