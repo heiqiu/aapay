@@ -127,6 +127,28 @@ body {
   margin-bottom: 0;
 }
 
+/* 输入指示器样式 */
+.input-indicator {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #07c160;
+  color: white;
+  padding: 0 16px;
+  border-radius: 12px;
+  font-size: 14px;
+  font-weight: 600;
+  margin-left: 8px;
+  white-space: nowrap;
+  animation: fadeInPulse 2s infinite;
+}
+
+@keyframes fadeInPulse {
+  0% { opacity: 0.7; transform: scale(0.95); }
+  50% { opacity: 1; transform: scale(1.02); }
+  100% { opacity: 0.7; transform: scale(0.95); }
+}
+
 /* 两栏布局容器 */
 .content-layout {
   display: flex;
@@ -358,6 +380,25 @@ body {
   box-shadow: 0 2px 8px rgba(7, 193, 96, 0.25);
 }
 
+/* 添加脉冲动画 */
+.pulse-animation {
+  animation: pulse 0.5s ease-in-out 3;
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+    box-shadow: 0 4px 12px rgba(7, 193, 96, 0.3), 0 2px 6px rgba(7, 193, 96, 0.2);
+  }
+  50% {
+    transform: scale(1.05);
+    box-shadow: 0 6px 16px rgba(7, 193, 96, 0.5), 0 3px 8px rgba(7, 193, 96, 0.3);
+  }
+  100% {
+    transform: scale(1);
+    box-shadow: 0 4px 12px rgba(7, 193, 96, 0.3), 0 2px 6px rgba(7, 193, 96, 0.2);
+  }
+}
 
 .amount-info {
   display: flex;

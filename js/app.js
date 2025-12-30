@@ -156,7 +156,7 @@ function updateSettlement() {
 }
 
 /**
- * 复制结算信息
+ * 复制文本到剪贴板
  */
 function copySettlementInfo() {
   const { activityName, totalAmount, averageAmount, settlementDetails, transferDetails } = state;
@@ -207,6 +207,27 @@ function copySettlementInfo() {
   updateRecordsDisplay(state.copyRecords, elements, recopyRecord, deleteRecord, toggleRecordSelection);
 
   copyToClipboardWrapper(text);
+}
+
+/**
+ * 为添加成员按钮添加提示动画
+ */
+function animateAddButton() {
+  const button = elements.addMemberBtn;
+  
+  // 移除可能存在的动画类
+  button.classList.remove('pulse-animation');
+  
+  // 强制重排以确保类被移除
+  void button.offsetWidth;
+  
+  // 添加脉冲动画类
+  button.classList.add('pulse-animation');
+  
+  // 一段时间后移除动画类
+  setTimeout(() => {
+    button.classList.remove('pulse-animation');
+  }, 2000);
 }
 
 /**
@@ -361,6 +382,11 @@ function init() {
   // 事件绑定
   elements.activityNameInput.addEventListener('input', (e) => {
     state.activityName = e.target.value;
+    
+    // 当活动名称不为空时，给添加成员按钮添加提示动画
+    if (state.activityName.trim()) {
+      animateAddButton();
+    }
   });
 
   elements.addMemberBtn.addEventListener('click', showAddMemberModal);
