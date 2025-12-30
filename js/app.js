@@ -416,6 +416,7 @@ function init() {
   elements.addMemberBtn.addEventListener('click', showAddMemberModal);
   elements.cancelAddBtn.addEventListener('click', hideAddModal);
   elements.confirmAddBtn.addEventListener('click', addMember);
+  elements.copyBtn.addEventListener('click', copySettlementInfo);
   elements.cancelEditBtn.addEventListener('click', hideEditModal);
   
   // 添加键盘事件监听，实现回车切换焦点
