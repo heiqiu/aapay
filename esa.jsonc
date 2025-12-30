@@ -6,7 +6,7 @@
     "publicPath": "/"
   },
   "function": {
-    "dir": "",
-    "entry": ""
+    "dir": "functions",
+    "entry": "index.js"
   }
 }
