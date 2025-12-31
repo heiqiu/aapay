@@ -924,18 +924,6 @@ function init() {
       contentHTML += `<div style="font-size: 16px;">人均：<span style="color: #07c160; font-weight: bold;">${record.averageAmount}元</span></div>`;
       contentHTML += `</div>`;
       
-      // 添加成员列表部分
-      if (record.members && record.members.length > 0) {
-        contentHTML += `<div style="margin-bottom: 15px; padding-bottom: 10px; border-bottom: 2px solid rgba(255, 255, 255, 0.2);">`;
-        contentHTML += `<h3 style="color: #07c160; margin: 0 0 10px 0; font-size: 18px;">成员列表</h3>`;
-        record.members.forEach(member => {
-          contentHTML += `<div style="display: flex; justify-content: space-between; align-items: center; margin: 6px 0; padding: 14px 12px; border-radius: 8px; background: transparent; border-bottom: 1px solid rgba(255, 255, 255, 0.2); transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);">`;
-          contentHTML += `<span style="font-weight: 600; flex: 1; padding-right: 12px; font-size: 15px; color: #07c160; letter-spacing: 0.2px;">${member.name}</span>`;
-          contentHTML += `<span style="min-width: 90px; text-align: right; font-weight: 600; padding: 4px 10px; border-radius: 6px; color: #07c160; font-weight: 700; border: 1px solid rgba(7, 193, 96, 0.3); background: rgba(7, 193, 96, 0.1);">已付 ${member.amount}元</span>`;
-          contentHTML += `</div>`;
-        });
-        contentHTML += `</div>`;
-      }
       
       contentHTML += `<div style="margin-bottom: 15px; padding-bottom: 10px; border-bottom: 2px solid rgba(255, 255, 255, 0.2);">`;
       contentHTML += `<h3 style="color: #07c160; margin: 0 0 10px 0; font-size: 18px;">结算明细</h3>`;
