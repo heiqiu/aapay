@@ -117,6 +117,18 @@ function skipTutorial() {
 }
 
 /**
+ * 重置引导状态，允许用户重新查看引导
+ */
+function resetTutorial() {
+  try {
+    localStorage.removeItem('hasSeenTutorial');
+    state.hasSeenTutorial = false;
+  } catch (e) {
+    console.error('重置引导状态失败:', e);
+  }
+}
+
+/**
  * 显示添加成员弹窗
  */
 function showAddMemberModal() {
