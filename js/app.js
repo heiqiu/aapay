@@ -919,13 +919,13 @@ function init() {
       // 构建要显示的内容
       let contentHTML = '';
       contentHTML += `<h2 style="text-align: center; color: #07c160; margin: 0 0 15px 0; font-size: 20px;">【${record.activityName}】</h2>`;
-      contentHTML += `<div style="margin-bottom: 15px; padding-bottom: 10px; border-bottom: 2px solid rgba(255, 255, 255, 0.2);">`;
-      contentHTML += `<div style="font-size: 16px; margin-bottom: 5px;">总金额：<span style="color: #07c160; font-weight: bold;">${record.totalAmount}元</span></div>`;
+      contentHTML += `<div style="display: flex; justify-content: space-between; margin-bottom: 15px; padding-bottom: 10px; border-bottom: 2px solid rgba(255, 255, 255, 0.2);">`;
+      contentHTML += `<div style="font-size: 16px;">总金额：<span style="color: #07c160; font-weight: bold;">${record.totalAmount}元</span></div>`;
       contentHTML += `<div style="font-size: 16px;">人均：<span style="color: #07c160; font-weight: bold;">${record.averageAmount}元</span></div>`;
       contentHTML += `</div>`;
       
-      
-      contentHTML += `<div style="margin-bottom: 15px; padding-bottom: 10px; border-bottom: 2px solid rgba(255, 255, 255, 0.2);">`;
+      contentHTML += `<div style="display: flex; gap: 20px; margin-bottom: 15px; padding-bottom: 10px; border-bottom: 2px solid rgba(255, 255, 255, 0.2);">`;
+      contentHTML += `<div style="flex: 1; min-width: 0;">`;
       contentHTML += `<h3 style="color: #07c160; margin: 0 0 10px 0; font-size: 18px;">结算明细</h3>`;
       record.settlementDetails.forEach(item => {
         if (item.diff !== 0) {
@@ -942,7 +942,8 @@ function init() {
       // 计算转账详情
       const transferDetails = calculateTransferDetails(record.settlementDetails);
       if (transferDetails.length > 0) {
-        contentHTML += `<div style="margin-bottom: 10px;">`;
+        contentHTML += `</div>`; // 结束左侧结算明细
+        contentHTML += `<div style="flex: 1; min-width: 0;">`;
         contentHTML += `<h3 style="color: #07c160; margin: 0 0 10px 0; font-size: 18px;">转账方案</h3>`;
         transferDetails.forEach(item => {
           contentHTML += `<div style="display: flex; justify-content: space-between; align-items: center; margin: 6px 0; padding: 14px 12px; border-radius: 8px; background: transparent; border-bottom: 1px solid rgba(255, 255, 255, 0.2); transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);">`;
@@ -952,7 +953,9 @@ function init() {
           contentHTML += `<span style="color: #ffffff; font-weight: 700; font-size: 16px; margin-left: auto;">${item.amount}元</span>`;
           contentHTML += `</div>`;
         });
-        contentHTML += `</div>`;
+        contentHTML += `</div>`; // 结束右侧转账方案
+      } else {
+        contentHTML += `</div>`; // 如果没有转账详情，也要结束左侧结算明细
       }
       
       contentHTML += `<div style="text-align: center; font-size: 14px; color: rgba(255, 255, 255, 0.7); margin-top: 15px; padding-top: 10px; border-top: 1px solid rgba(255, 255, 255, 0.2);">生成时间: ${record.time}</div>`;
