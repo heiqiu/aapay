@@ -42,5 +42,12 @@ export function getElements() {
     confirmModal: document.getElementById('confirmModal'),
     confirmCancelBtn: document.getElementById('confirmCancelBtn'),
     confirmConfirmBtn: document.getElementById('confirmConfirmBtn'),
+    // 教学引导相关元素
+    tutorialOverlay: document.getElementById('tutorialOverlay'),
+    tutorialStep: document.getElementById('tutorialStep'),
+    tutorialText: document.getElementById('tutorialText'),
+    tutorialSkipBtn: document.getElementById('tutorialSkipBtn'),
+    tutorialPrevBtn: document.getElementById('tutorialPrevBtn'),
+    tutorialNextBtn: document.getElementById('tutorialNextBtn'),
   };
 }

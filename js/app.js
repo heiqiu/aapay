@@ -19,6 +19,103 @@ const elements = getElements();
 const showToastWrapper = (message) => showToast(message, elements.toast);
 const copyToClipboardWrapper = (text) => copyToClipboard(text, showToastWrapper);
 
+// 从state中获取教学引导相关状态
+// state.tutorialSteps, state.currentTutorialStep, state.isTutorialActive, state.hasSeenTutorial
+
+/**
+ * 启动教学引导
+ */
+function startTutorial() {
+  state.currentTutorialStep = 0;
+  state.isTutorialActive = true;
+  if (elements.tutorialOverlay) {
+    elements.tutorialOverlay.style.display = 'flex';
+  }
+  showTutorialStep(state.currentTutorialStep);
+}
+
+/**
+ * 显示教学引导步骤
+ */
+function showTutorialStep(stepIndex) {
+  if (stepIndex < 0 || stepIndex >= state.tutorialSteps.length) return;
+  
+  const step = state.tutorialSteps[stepIndex];
+  const element = document.getElementById(step.elementId);
+  
+  if (!element) return;
+  
+  // 清除之前的所有高亮
+  document.querySelectorAll('.highlight-element').forEach(el => {
+    el.classList.remove('highlight-element');
+  });
+  
+  // 高亮当前元素
+  if (step.highlight) {
+    element.classList.add('highlight-element');
+  }
+  
+  // 更新引导内容
+  elements.tutorialText.innerHTML = `<h3 style="margin: 0 0 10px 0; color: #07c160; font-size: 18px;">${step.title}</h3><p style="margin: 0; color: #ffffff;">${step.description}</p>`;
+  
+  // 更新按钮状态
+  elements.tutorialPrevBtn.style.display = stepIndex === 0 ? 'none' : 'block';
+  elements.tutorialNextBtn.textContent = stepIndex === state.tutorialSteps.length - 1 ? '完成' : '下一步';
+}
+
+/**
+ * 下一步教学引导
+ */
+function nextTutorialStep() {
+  if (state.currentTutorialStep < state.tutorialSteps.length - 1) {
+    state.currentTutorialStep++;
+    showTutorialStep(state.currentTutorialStep);
+  } else {
+    // 完成引导
+    finishTutorial();
+  }
+}
+
+/**
+ * 上一步教学引导
+ */
+function prevTutorialStep() {
+  if (state.currentTutorialStep > 0) {
+    state.currentTutorialStep--;
+    showTutorialStep(state.currentTutorialStep);
+  }
+}
+
+/**
+ * 完成教学引导
+ */
+function finishTutorial() {
+  // 清除所有高亮
+  document.querySelectorAll('.highlight-element').forEach(el => {
+    el.classList.remove('highlight-element');
+  });
+  
+  state.isTutorialActive = false;
+  if (elements.tutorialOverlay) {
+    elements.tutorialOverlay.style.display = 'none';
+  }
+  
+  // 保存引导状态
+  state.hasSeenTutorial = true;
+  try {
+    localStorage.setItem('hasSeenTutorial', 'true');
+  } catch (e) {
+    console.error('保存引导状态失败:', e);
+  }
+}
+
+/**
+ * 跳过教学引导
+ */
+function skipTutorial() {
+  finishTutorial();
+}
+
 /**
  * 显示添加成员弹窗
  */
@@ -748,11 +845,37 @@ function init() {
     }
   });
 
+  // 教学引导事件
+  if (elements.tutorialSkipBtn) elements.tutorialSkipBtn.addEventListener('click', skipTutorial);
+  if (elements.tutorialPrevBtn) elements.tutorialPrevBtn.addEventListener('click', prevTutorialStep);
+  if (elements.tutorialNextBtn) elements.tutorialNextBtn.addEventListener('click', nextTutorialStep);
+  
+  // 添加引导按钮事件
+  const tutorialBtn = document.getElementById('tutorialBtn');
+  if (tutorialBtn) {
+    tutorialBtn.addEventListener('click', startTutorial);
+  }
+  
   // 初始渲染
   updateSettlement();
   
   // 设置活动名称输入框的焦点
   elements.activityNameInput.focus();
+  
+  // 检查是否需要显示引导
+  try {
+    const hasSeen = localStorage.getItem('hasSeenTutorial');
+    state.hasSeenTutorial = hasSeen === 'true';
+    
+    if (!state.hasSeenTutorial && elements.tutorialOverlay) {
+      setTimeout(() => {
+        startTutorial();
+      }, 1000); // 延迟1秒显示引导，让用户先看到界面
+    }
+  } catch (e) {
+    console.error('读取引导状态失败:', e);
+    // 如果读取失败，默认不显示引导
+  }
 }
 
 // 当DOM加载完成后初始化

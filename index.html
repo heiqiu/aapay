@@ -20,6 +20,8 @@
             <span class="slogan-text">聚餐打球，算账</span>
             <span class="slogan-highlight">不愁</span>
         </div>
+        <button class="tutorial-trigger-btn" id="tutorialBtn" title="使用引导">?
+        </button>
     </div>
 </header>
 
@@ -132,6 +134,20 @@
         <div class="confirm-buttons">
             <button class="confirm-btn cancel" id="confirmCancelBtn">取消</button>
             <button class="confirm-btn confirm" id="confirmConfirmBtn">确定</button>
+        </div>
+    </div>
+</div>
+
+<!-- 教学引导遮罩层 -->
+<div class="tutorial-overlay" id="tutorialOverlay" style="display: none;">
+    <div class="tutorial-step" id="tutorialStep">
+        <div class="tutorial-content">
+            <div class="tutorial-text" id="tutorialText"></div>
+            <div class="tutorial-actions">
+                <button class="tutorial-btn skip" id="tutorialSkipBtn">跳过</button>
+                <button class="tutorial-btn prev" id="tutorialPrevBtn">上一步</button>
+                <button class="tutorial-btn next" id="tutorialNextBtn">下一步</button>
+            </div>
         </div>
     </div>
 </div>

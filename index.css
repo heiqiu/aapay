@@ -1161,364 +1161,25 @@ body {
 
 /* 完成按钮样式 */
 
-.transfer-item {
-  display: flex;
-  align-items: center;
-  font-size: 15px;
-}
-
-.transfer-item span:not(.transfer-arrow):not(.transfer-amount) {
-  color: #07c160;
-}
-
-.transfer-arrow {
-  color: #07c160;
-  margin: 0 12px;
-  font-weight: 700;
-  font-size: 18px;
-  opacity: 0.9;
-  text-shadow: 0 1px 2px rgba(7, 193, 96, 0.2);
-}
-
-.transfer-amount {
-  margin-left: auto;
-  color: #ffffff;
-  font-weight: 700;
-  font-size: 16px;
-  background: linear-gradient(135deg, #f5222d 0%, #d9191e 100%);
-  padding: 6px 12px;
-  border-radius: 8px;
-  border: 1px solid rgba(245, 34, 45, 0.3);
-  box-shadow: 0 2px 8px rgba(245, 34, 45, 0.2);
-  transition: all 0.3s ease;
-}
-
-.transfer-amount:hover {
-  transform: translateY(-1px);
-  box-shadow: 0 4px 12px rgba(245, 34, 45, 0.3);
-}
-
-.copy-btn {
-  background: #07c160;
-  color: white;
-  font-size: 15px;
-  font-weight: 600;
-  padding: 12px 20px;
-  border: none;
-  border-radius: 10px;
-  box-shadow: 0 4px 12px rgba(7, 193, 96, 0.3), 0 2px 6px rgba(7, 193, 96, 0.2);
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  cursor: pointer;
-  letter-spacing: 0.5px;
-  position: relative;
-  overflow: hidden;
-  align-self: center;
-  min-width: auto;
-  width: auto;
-}
-
-.copy-btn::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-  transition: left 0.5s;
-}
-
-.copy-btn:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 16px rgba(7, 193, 96, 0.4), 0 3px 8px rgba(7, 193, 96, 0.3);
-}
-
-.copy-btn:hover::before {
-  left: 100%;
-}
-
-.copy-btn:active {
-  transform: translateY(0) scale(0.98);
-  box-shadow: 0 2px 8px rgba(7, 193, 96, 0.25);
-}
-
-.copy-records {
-  margin-top: 20px;
-  background: #252525;
-  border-radius: 8px;
-  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.03);
-  overflow: hidden;
-}
-
-.records-header {
-  padding: 12px 16px;
-  background: #252525;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.header-left {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.records-title {
-  font-size: 16px;
-  font-weight: 600;
-  color: #ffffff;
-}
-
-.record-btn {
-  font-size: 14px;
-  padding: 10px 16px;
-  border-radius: 8px;
-  transition: all 0.3s;
-  border: none;
-  cursor: pointer;
-  min-width: auto;
-  height: auto;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-}
-
-.record-btn.clear {
-  color: #ffffff;
-  background: #07c160;
-}
-
-.record-btn.clear:hover {
-  background: #ff7875;
-  transform: translateY(-1px);
-  box-shadow: 0 4px 12px rgba(255, 77, 79, 0.3);
-}
-
-.record-btn.clear:active {
-  transform: translateY(0) scale(0.98);
-  background: #f5222d;
-}
-
-.record-btn.toggle {
-  color: #ffffff;
-  background: #07c160;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 10px;
-}
-
-.record-btn.toggle:hover {
-  background: #73d13d;
-  transform: translateY(-1px);
-  box-shadow: 0 4px 12px rgba(82, 196, 26, 0.3);
-}
-
-.record-btn.toggle:active {
-  transform: translateY(0) scale(0.98);
-  background: #07c160;
-}
-
-.toggle-icon {
-  width: 12px;
-  height: 12px;
-  transition: transform 0.3s ease;
-  color: currentColor;
-}
-
-.toggle-icon.expanded {
-  transform: rotate(180deg);
-}
-
-.record-btn.merge {
-  color: #ffffff;
-  background: #07c160;
-}
-
-.record-btn.merge:hover {
-  background: #73d13d;
-  transform: translateY(-1px);
-  box-shadow: 0 4px 12px rgba(82, 196, 26, 0.3);
-}
-
-.record-btn.merge:active {
-  transform: translateY(0) scale(0.98);
-  background: #52c41a;
-}
-
-.record-item {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 14px 16px;
-  transition: all 0.3s;
-  color: #ffffff;
-}
-
-.record-item:active {
-  background: rgba(255, 255, 255, 0.1);
-}
-
-.record-info {
-  flex: 1;
-}
-
-.record-title {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  margin-bottom: 6px;
-}
-
-.record-name {
-  font-size: 15px;
-  font-weight: 500;
-  color: #07c160;
-}
-
-.record-amount {
-  font-weight: 600;
-  color: #ffffff;
-}
-
-.record-time {
-  font-size: 12px;
-  color: rgba(255, 255, 255, 0.8);
-}
-
-.record-btn.recopy {
-  color: #1890ff;
-  background: transparent;
-  border: none;
-  padding: 0;
-  min-width: auto;
-  width: 24px;
-  height: 24px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  cursor: pointer;
-  border-radius: 4px;
-}
-
-.record-btn.delete {
-  color: #ff4d4f;
-  background: transparent;
-  border: none;
-  padding: 0;
-  min-width: auto;
-  width: 24px;
-  height: 24px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  cursor: pointer;
-  border-radius: 4px;
-}
-
-.record-btn.recopy:hover {
-  background: rgba(24, 144, 255, 0.1);
-  transform: translateY(-1px);
-  box-shadow: 0 2px 6px rgba(24, 144, 255, 0.2);
-}
-
-.record-btn.delete:hover {
-  background: rgba(255, 77, 79, 0.1);
-  transform: translateY(-1px);
-  box-shadow: 0 2px 6px rgba(255, 77, 79, 0.2);
-}
-
-.record-btn.recopy:active, .record-btn.delete:active {
-  transform: translateY(0);
-  background: rgba(255, 77, 79, 0.2);
-}
-
-.record-actions {
-  display: flex;
-  gap: 8px;
-}
-
-
-
-.checkbox-label {
-  display: flex;
-  align-items: center;
-  width: 100%;
-}
-
-.checkbox {
-  margin-right: 10px;
-}
-
-.toast {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%) translateY(20px);
-  background: linear-gradient(135deg, #252525 0%, #333333 100%);
-  color: #07c160;
-  padding: 16px 28px;
-  border-radius: 12px;
-  z-index: 2000;
-  font-size: 15px;
-  font-weight: 500;
-  pointer-events: none;
-  opacity: 0;
-  transition: all 0.4s cubic-bezier(0.68, -0.55, 0.27, 1.55);
-  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.4), 0 6px 16px rgba(0, 0, 0, 0.3);
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  min-width: 200px;
-  text-align: center;
-  backdrop-filter: blur(10px);
-}
-
-.toast.show {
-  opacity: 1;
-  transform: translate(-50%, -50%) translateY(0);
-}
-
-/* 页尾样式 */
-.footer {
-  background: #0b0e14;
-  padding: 20px;
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
-  margin-top: auto;
-}
-
-.footer-content {
-  max-width: var(--page-max-width);
-  margin: 0 auto;
-  width: 100%;
-  padding: 0 var(--page-padding);
-  text-align: center;
-}
-
-.footer-content p {
-  color: #ffffff;
-  font-size: 12px;
-  margin: 0;
-}
-
-/* 确认对话框样式 */
-.confirm-modal {
+/* 教学引导遮罩层 */
+.tutorial-overlay {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
   background: rgba(0, 0, 0, 0.75);
+  z-index: 9999;
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 1000;
   backdrop-filter: blur(5px);
 }
 
-.confirm-modal-content {
+.tutorial-step {
+  position: relative;
+  max-width: 400px;
   width: 80%;
-  max-width: 350px;
   background: #252525;
   border-radius: 16px;
   padding: 24px;
@@ -1528,42 +1189,24 @@ body {
   animation: modalAppear 0.3s cubic-bezier(0.4, 0, 0.2, 1) forwards;
 }
 
-@keyframes modalAppear {
-  to {
-    transform: scale(1);
-  }
-}
-
-.confirm-header {
-  margin-bottom: 16px;
-}
-
-.confirm-header h3 {
-  margin: 0;
-  font-size: 18px;
-  color: #ffffff;
+.tutorial-content {
   text-align: center;
 }
 
-.confirm-body {
+.tutorial-text {
   margin-bottom: 24px;
-  text-align: center;
-}
-
-.confirm-body p {
-  margin: 0;
   font-size: 16px;
   color: #ffffff;
-  line-height: 1.5;
+  line-height: 1.6;
 }
 
-.confirm-buttons {
+.tutorial-actions {
   display: flex;
   gap: 12px;
   justify-content: center;
 }
 
-.confirm-btn {
+.tutorial-btn {
   flex: 1;
   padding: 12px 16px;
   border-radius: 10px;
@@ -1577,36 +1220,155 @@ body {
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
 }
 
-.confirm-btn.cancel {
+.tutorial-btn.skip {
   background: #555555;
   color: white;
 }
 
-.confirm-btn.cancel:hover {
+.tutorial-btn.skip:hover {
   background: #666666;
   transform: translateY(-1px);
   box-shadow: 0 4px 12px rgba(85, 85, 85, 0.3);
 }
 
-.confirm-btn.cancel:active {
-  transform: translateY(0) scale(0.98);
-  box-shadow: 0 2px 6px rgba(85, 85, 85, 0.2);
-}
-
-.confirm-btn.confirm {
-  background: #f5222d;
+.tutorial-btn.prev {
+  background: #07c160;
   color: white;
 }
 
-.confirm-btn.confirm:hover {
-  background: #ff4d4f;
+.tutorial-btn.prev:hover {
+  background: #73d13d;
   transform: translateY(-1px);
-  box-shadow: 0 4px 12px rgba(245, 34, 45, 0.3);
+  box-shadow: 0 4px 12px rgba(82, 196, 26, 0.3);
 }
 
-.confirm-btn.confirm:active {
+.tutorial-btn.next {
+  background: #07c160;
+  color: white;
+}
+
+.tutorial-btn.next:hover {
+  background: #73d13d;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(82, 196, 26, 0.3);
+}
+
+.tutorial-btn:active {
   transform: translateY(0) scale(0.98);
-  box-shadow: 0 2px 8px rgba(245, 34, 45, 0.25);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
 }
 
-/* 完成按钮样式 */
+/* 高亮元素的样式 */
+.highlight-element {
+  position: relative;
+  z-index: 10000 !important;
+  box-shadow: 0 0 0 4px #07c160, 0 0 20px 8px rgba(7, 193, 96, 0.6) !important;
+  border-radius: 12px;
+  transition: all 0.3s ease;
+}
+
+/* 引导脉冲动画 */
+.tutorial-pulse {
+  animation: tutorialPulse 2s infinite;
+}
+
+@keyframes tutorialPulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(7, 193, 96, 0.4);
+  }
+  70% {
+    box-shadow: 0 0 0 12px rgba(7, 193, 96, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(7, 193, 96, 0);
+  }
+}
+
+/* 引导高亮动画 */
+.tutorial-highlight {
+  animation: tutorialHighlight 2s infinite;
+}
+
+@keyframes tutorialHighlight {
+  0% { opacity: 0.7; }
+  50% { opacity: 1; transform: scale(1.05); }
+  100% { opacity: 0.7; }
+}
+
+/* 修复样式冲突 */
+.tutorial-trigger-btn {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: #07c160;
+  color: white;
+  border: none;
+  font-size: 18px;
+  font-weight: bold;
+  cursor: pointer;
+  margin-left: 15px;
+  box-shadow: 0 4px 12px rgba(7, 193, 96, 0.4);
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.tutorial-trigger-btn:hover {
+  transform: scale(1.1);
+  box-shadow: 0 6px 16px rgba(7, 193, 96, 0.6);
+}
+
+.tutorial-trigger-btn:active {
+  transform: scale(0.95);
+}
+
+/* 指向动画 */
+.tutorial-pointer {
+  position: absolute;
+  width: 40px;
+  height: 40px;
+  background: #07c160;
+  border-radius: 50%;
+  animation: pointerBounce 1.5s infinite;
+  z-index: 9998;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+@keyframes pointerBounce {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.2); }
+}
+
+/* 头部引导按钮样式 */
+.tutorial-trigger-btn {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: #07c160;
+  color: white;
+  border: none;
+  font-size: 18px;
+  font-weight: bold;
+  cursor: pointer;
+  margin-left: 15px;
+  box-shadow: 0 4px 12px rgba(7, 193, 96, 0.4);
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.tutorial-trigger-btn:hover {
+  transform: scale(1.1);
+  box-shadow: 0 6px 16px rgba(7, 193, 96, 0.6);
+}
+
+.tutorial-trigger-btn:active {
+  transform: scale(0.95);
+}
