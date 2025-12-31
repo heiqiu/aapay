@@ -1170,16 +1170,13 @@ body {
   height: 100%;
   background: rgba(0, 0, 0, 0.75);
   z-index: 9999;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   backdrop-filter: blur(5px);
 }
 
 .tutorial-step {
-  position: relative;
+  position: absolute;
   max-width: 400px;
-  width: 80%;
+  width: 320px;
   background: #252525;
   border-radius: 16px;
   padding: 24px;
@@ -1187,6 +1184,20 @@ body {
   border: 1px solid rgba(255, 255, 255, 0.15);
   transform: scale(0.9);
   animation: modalAppear 0.3s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+/* 确保模态框在引导之上 */
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10000; /* 高于引导遮罩 */
 }
 
 .tutorial-content {

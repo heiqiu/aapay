@@ -30,7 +30,7 @@ export function createState() {
       {
         elementId: 'activityNameInput',
         title: '第一步：输入活动名称',
-        description: '首先输入活动名称，比如"聚餐费用"或"旅游支出"',
+        description: '首先输入活动名称，比如"聚餐费用"或"唱K支出"',
         highlight: true,
         position: 'bottom'
       },

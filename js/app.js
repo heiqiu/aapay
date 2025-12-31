@@ -23,18 +23,6 @@ const copyToClipboardWrapper = (text) => copyToClipboard(text, showToastWrapper)
 // state.tutorialSteps, state.currentTutorialStep, state.isTutorialActive, state.hasSeenTutorial
 
 /**
- * 启动教学引导
- */
-function startTutorial() {
-  state.currentTutorialStep = 0;
-  state.isTutorialActive = true;
-  if (elements.tutorialOverlay) {
-    elements.tutorialOverlay.style.display = 'flex';
-  }
-  showTutorialStep(state.currentTutorialStep);
-}
-
-/**
  * 显示教学引导步骤
  */
 function showTutorialStep(stepIndex) {
@@ -61,15 +49,145 @@ function showTutorialStep(stepIndex) {
   // 更新按钮状态
   elements.tutorialPrevBtn.style.display = stepIndex === 0 ? 'none' : 'block';
   elements.tutorialNextBtn.textContent = stepIndex === state.tutorialSteps.length - 1 ? '完成' : '下一步';
+  
+  // 根据目标元素位置动态定位引导弹窗，避免遮挡
+  setTimeout(() => {
+    if (elements.tutorialStep) {
+      // 重置为默认样式，防止之前的定位影响
+      elements.tutorialStep.style.position = 'fixed';
+      elements.tutorialStep.style.left = '';
+      elements.tutorialStep.style.top = '';
+      elements.tutorialStep.style.transform = '';
+      
+      // 等待DOM更新后，再根据元素位置调整
+      setTimeout(() => {
+        if (element) {
+          const elementRect = element.getBoundingClientRect();
+          const tutorialRect = elements.tutorialStep.getBoundingClientRect();
+          const viewportWidth = window.innerWidth;
+          const viewportHeight = window.innerHeight;
+          
+          let top = 0;
+          let left = 0;
+          
+          // 特殊处理添加成员按钮，避免遮挡弹窗
+          if (step.elementId === 'addMemberBtn') {
+            // 当点击添加成员按钮时，会弹出模态框，引导应显示在左上角，不遮挡模态框
+            top = 20;
+            left = 20;
+            
+            // 重要：在显示添加成员弹窗时，需要特殊处理遮罩
+            // 显示添加成员弹窗
+            if (elements.addModal) {
+              elements.addModal.style.display = 'flex';
+            }
+            // 重新显示引导遮罩，但需要调整层级以避免干扰
+            if (elements.tutorialOverlay) {
+              elements.tutorialOverlay.style.display = 'flex';
+            }
+            
+            // 设置焦点到姓名输入框
+            setTimeout(() => {
+              if (elements.newMemberName) {
+                elements.newMemberName.focus();
+              }
+            }, 300);
+          } else if (step.position === 'bottom') {
+            // 弹窗显示在元素下方
+            top = elementRect.bottom + 20;
+            left = Math.max(20, Math.min(elementRect.left, viewportWidth - tutorialRect.width - 20));
+          } else if (step.position === 'top') {
+            // 弹窗显示在元素上方
+            top = elementRect.top - tutorialRect.height - 20;
+            left = Math.max(20, Math.min(elementRect.left, viewportWidth - tutorialRect.width - 20));
+          } else if (step.position === 'left') {
+            // 弹窗显示在元素左侧
+            top = elementRect.top + window.scrollY;
+            left = elementRect.left - tutorialRect.width - 20;
+          } else if (step.position === 'right') {
+            // 弹窗显示在元素右侧
+            top = elementRect.top + window.scrollY;
+            left = elementRect.right + 20;
+          } else {
+            // 默认居中
+            top = (viewportHeight - tutorialRect.height) / 2 + window.scrollY;
+            left = (viewportWidth - tutorialRect.width) / 2;
+          }
+          
+          // 确保弹窗在视窗范围内
+          top = Math.max(20, Math.min(top, viewportHeight - tutorialRect.height - 20));
+          left = Math.max(20, Math.min(left, viewportWidth - tutorialRect.width - 20));
+          
+          // 应用新的位置
+          elements.tutorialStep.style.top = `${top}px`;
+          elements.tutorialStep.style.left = `${left}px`;
+        }
+      }, 10);
+    }
+  }, 10);
+}
+
+/**
+ * 启动教学引导
+ */
+function startTutorial() {
+  state.currentTutorialStep = 0;
+  state.isTutorialActive = true;
+  if (elements.tutorialOverlay) {
+    elements.tutorialOverlay.style.display = 'flex';
+  }
+  showTutorialStep(state.currentTutorialStep);
+  
+  // 如果是第一步（活动名称输入），设置焦点
+  if (state.currentTutorialStep === 0) {
+    setTimeout(() => {
+      if (elements.activityNameInput) {
+        elements.activityNameInput.focus();
+      }
+    }, 300); // 延迟设置焦点，确保DOM已更新
+  }
 }
 
 /**
  * 下一步教学引导
  */
 function nextTutorialStep() {
+  // 检查是否是第一步（活动名称输入）且需要验证
+  if (state.currentTutorialStep === 0) {
+    const activityName = elements.activityNameInput.value.trim();
+    if (!activityName) {
+      // 没有填写活动名称，给出提示并保持在当前步骤
+      showToastWrapper('请先填写活动名称');
+      // 确保焦点在活动名称输入框
+      elements.activityNameInput.focus();
+      return;
+    }
+  }
+  
   if (state.currentTutorialStep < state.tutorialSteps.length - 1) {
+    // 如果当前步骤是添加成员步骤（第二步，索引为1），在进入下一步前需要处理模态框
+    if (state.currentTutorialStep === 1) {
+      // 隐藏添加成员弹窗
+      if (elements.addModal) {
+        elements.addModal.style.display = 'none';
+      }
+    }
+    
     state.currentTutorialStep++;
     showTutorialStep(state.currentTutorialStep);
+    
+    // 如果进入第二步（添加成员），设置焦点到姓名输入框
+    if (state.currentTutorialStep === 1) {
+      setTimeout(() => {
+        if (elements.addMemberBtn) {
+          // 高亮按钮提示用户点击
+          elements.addMemberBtn.classList.add('pulse-animation');
+          setTimeout(() => {
+            elements.addMemberBtn.classList.remove('pulse-animation');
+          }, 2000);
+        }
+      }, 300);
+    }
   } else {
     // 完成引导
     finishTutorial();
@@ -80,9 +198,26 @@ function nextTutorialStep() {
  * 上一步教学引导
  */
 function prevTutorialStep() {
+  // 如果当前步骤是添加成员步骤（第二步，索引为1），在返回上一步前需要处理模态框
+  if (state.currentTutorialStep === 1) {
+    // 隐藏添加成员弹窗
+    if (elements.addModal) {
+      elements.addModal.style.display = 'none';
+    }
+  }
+  
   if (state.currentTutorialStep > 0) {
     state.currentTutorialStep--;
     showTutorialStep(state.currentTutorialStep);
+    
+    // 如果返回到第一步，设置焦点到活动名称输入框
+    if (state.currentTutorialStep === 0) {
+      setTimeout(() => {
+        if (elements.activityNameInput) {
+          elements.activityNameInput.focus();
+        }
+      }, 300);
+    }
   }
 }
 
@@ -98,6 +233,19 @@ function finishTutorial() {
   state.isTutorialActive = false;
   if (elements.tutorialOverlay) {
     elements.tutorialOverlay.style.display = 'none';
+  }
+  // 确保其他模态框也关闭
+  if (elements.addModal) {
+    elements.addModal.style.display = 'none';
+  }
+  if (elements.editModal) {
+    elements.editModal.style.display = 'none';
+  }
+  if (elements.transferModal) {
+    elements.transferModal.style.display = 'none';
+  }
+  if (elements.confirmModal) {
+    elements.confirmModal.style.display = 'none';
   }
   
   // 保存引导状态
@@ -132,22 +280,38 @@ function resetTutorial() {
  * 显示添加成员弹窗
  */
 function showAddMemberModal() {
-  // 检查活动名称是否已填写
-  const activityName = elements.activityNameInput.value.trim();
-  if (!activityName) {
-    showToastWrapper('请先填写活动名称');
-    return;
+  // 检查是否在引导过程中
+  if (state.isTutorialActive && state.currentTutorialStep === 1) {
+    // 如果在引导过程中，显示模态框，但不影响引导流程
+    if (elements.addModal) {
+      elements.addModal.style.display = 'flex';
+    }
+    // 在引导过程中，我们允许用户实际操作添加成员弹窗
+    // 设置焦点到姓名输入框
+    setTimeout(() => {
+      if (elements.newMemberName) {
+        elements.newMemberName.focus();
+      }
+    }, 300);
+  } else {
+    // 非引导过程中正常显示
+    // 检查活动名称是否已填写
+    const activityName = elements.activityNameInput.value.trim();
+    if (!activityName) {
+      showToastWrapper('请先填写活动名称');
+      return;
+    }
+    
+    state.showModal = true;
+    state.newMemberName = '';
+    state.newMemberAmount = '';
+    elements.newMemberName.value = '';
+    elements.newMemberAmount.value = '';
+    elements.addModal.style.display = 'flex';
+    
+    // 将焦点设置到姓名输入框
+    elements.newMemberName.focus();
   }
-  
-  state.showModal = true;
-  state.newMemberName = '';
-  state.newMemberAmount = '';
-  elements.newMemberName.value = '';
-  elements.newMemberAmount.value = '';
-  elements.addModal.style.display = 'flex';
-  
-  // 将焦点设置到姓名输入框
-  elements.newMemberName.focus();
 }
 
 /**
@@ -190,7 +354,11 @@ function addMember() {
   // 更新成员列表和结算信息
   updateSettlement();
   
-  // 移除添加成员的提醒消息
+  // 如果在引导过程中，可能需要更新引导状态
+  if (state.isTutorialActive && state.currentTutorialStep === 1) {
+    // 可以选择在此处自动进入下一步，或者让用户手动点击下一步
+    // 这里我们让用户手动点击下一步
+  }
 }
 
 /**
