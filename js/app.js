@@ -70,13 +70,27 @@ function showTutorialStep(stepIndex) {
           let top = 0;
           let left = 0;
           
-          // 特殊处理添加成员按钮，避免遮挡弹窗
+          // 特殊处理添加成员按钮，显示在按钮旁边，不遮挡按钮和后续弹窗
           if (step.elementId === 'addMemberBtn') {
-            // 当点击添加成员按钮时，会弹出模态框，引导应显示在左上角，不遮挡模态框
-            top = 20;
-            left = 20;
+            // 弹窗显示在按钮的右上方或右侧，避免遮挡按钮
+            top = elementRect.top;
+            left = elementRect.right + 20; // 在按钮右边20px处
             
-            // 重要：在显示添加成员弹窗时，需要特殊处理遮罩
+            // 检查是否超出视窗右侧
+            if (left + tutorialRect.width > viewportWidth) {
+              // 如果超出右侧，则显示在按钮左边
+              left = elementRect.left - tutorialRect.width - 20;
+            }
+            
+            // 确保不超出视窗上边界
+            if (top < 20) {
+              top = 20;
+            }
+            
+            // 确保弹窗完全可见
+            top = Math.max(20, Math.min(top, viewportHeight - tutorialRect.height - 20));
+            left = Math.max(20, Math.min(left, viewportWidth - tutorialRect.width - 20));
+            
             // 显示添加成员弹窗
             if (elements.addModal) {
               elements.addModal.style.display = 'flex';
